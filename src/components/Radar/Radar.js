@@ -44,30 +44,27 @@ class Radar extends Component {
                 height={this.props.width}
                 ref={el => this.myRef = el}>
                 <g transform={"translate(" + this.props.width / 2 + "," + this.props.width / 2 + ")"}>
-                    <QuadrantGroup>
-                        {this.props.quadrants.map((value, index) => {
+                    {this.props.quadrants.map((value, index) => {
 
-                            //get points that belong to this quadrant
-                            const data = this.props.data.filter((element) => element.quadrant === value);
-                            const points = this.processRadarData(this.props.quadrants, this.props.rings, data);
-                            const margin = 5;
+                        //get points that belong to this quadrant
+                        const data = this.props.data.filter((element) => element.quadrant === value);
+                        const points = this.processRadarData(this.props.quadrants, this.props.rings, data);
+                        const margin = 5;
 
-                            return (
-                                <g key={index}>
-                                    <Quadrant
-                                        transform={" rotate(" + 360 / this.props.quadrants.length * index + ") translate(" + margin + "," + margin + ")  "}
-                                        width={this.props.width}
-                                        index={index}
-                                        rings={this.props.rings}
-                                        points={points}
-                                        angle={this.state.angle}
-                                        name={value}
-                                        fontSize={this.props.fontSize}
-                                    />
-                                </g>)
-                        })}
-                    </QuadrantGroup>
-
+                        return (
+                            <g key={index}>
+                                <Quadrant
+                                    transform={" rotate(" + 360 / this.props.quadrants.length * index + ") translate(" + margin + "," + margin + ")  "}
+                                    width={this.props.width}
+                                    index={index}
+                                    rings={this.props.rings}
+                                    points={points}
+                                    angle={this.state.angle}
+                                    name={value}
+                                    fontSize={this.props.fontSize}
+                                />
+                            </g>)
+                    })}
                 </g>
 
             </RadarContents>

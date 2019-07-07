@@ -4,6 +4,7 @@ import Path from "../Path/Path";
 import Line from "../Line/Line";
 import * as d3 from "d3";
 import Item from "../Item/Item";
+import {QuadrantWrapper} from "./Quadrant.style";
 
 const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 const ThemeContext = React.createContext(colorScale);
@@ -15,6 +16,9 @@ class Quadrant extends Component {
 
     constructor(props) {
         super(props);
+
+        //create ref
+        this.ref = React.createRef();
 
         const ringWidth = 0.95 * this.props.width / 2;
         const ring_unit = ringWidth / this.props.rings.length;
@@ -29,7 +33,11 @@ class Quadrant extends Component {
     render() {
         const radialAngle = 2 * Math.PI / 360 * this.props.angle;
         return (
-            <g>
+            <QuadrantWrapper
+                onMouseOver={this.onMouseOver}
+                onMouseOut={this.onMouseOut}
+                ref={el => this.ref = el}
+            >
                 <g transform={this.props.transform}>
                     <Line
                         x2={this.state.ringWidth}
@@ -63,12 +71,20 @@ class Quadrant extends Component {
                     })}
                 </g>
                 {this.props.points.map((value, index) => <Item key={index} data={value}/>)}
-            </g>
+            </QuadrantWrapper>
 
 
         )
 
     }
+
+    onMouseOver = () => {
+        this.ref.style.opacity = '1.0';
+    };
+
+    onMouseOut = () => {
+        this.ref.style.opacity ='0.6';
+    };
 }
 
 export default Quadrant;

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {ItemWrapper} from "./Item.style";
 
 class Item extends Component {
 
@@ -6,7 +7,7 @@ class Item extends Component {
         super(props);
 
         //create ref
-        this.myText = React.createRef();
+        this.ref = React.createRef();
 
         //create state
         this.state = {}
@@ -18,31 +19,32 @@ class Item extends Component {
     render() {
 
         return (
-            <g
+            <ItemWrapper
                 className="blip"
                 id={'blip-' + this.props.data.id}
                 transform={"translate(" + (this.props.data.x) + "," + (this.props.data.y) + ")"}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
+                ref={el => this.ref = el}
             >
                 <circle r={"7px"}/>
-                <text ref={el => this.myText = el}
+                <text
                       className={"name"}
                       dy={"20px"}
                 >
                     {this.props.data.name}
                 </text>
-            </g>
+            </ItemWrapper>
         )
 
     }
 
     onMouseOver = () => {
-        this.myText.style.opacity ='1.0';
+        this.ref.style.opacity ='1.0';
     };
 
     onMouseOut = () => {
-        this.myText.style.opacity ='0.5';
+        this.ref.style.opacity ='0.7';
     };
 }
 
