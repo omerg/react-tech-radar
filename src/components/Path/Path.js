@@ -24,8 +24,8 @@ class Path extends Component {
 
     render() {
         const rgb = d3.rgb(this.context(this.props.quadIndex));
-        const fill = rgb.brighter(this.props.horizonIndex / this.props.horizonsLength * 3);
-        const uniquePathId = this.props.quadIndex + "-" + this.props.horizonIndex;
+        const fill = rgb.brighter(this.props.ringIndex / this.props.ringsLength * 3);
+        const uniquePathId = this.props.quadIndex + "-" + this.props.ringIndex;
 
         return (
             <g>
@@ -37,7 +37,7 @@ class Path extends Component {
 
                 {this.props.title &&
                 <text
-                    dx={this.props.horizonWidth / 2 }
+                    dx={this.props.ringWidth / 2 }
                 >
                     <textPath href={'#' + uniquePathId}>
                         {this.props.title}
@@ -52,10 +52,10 @@ class Path extends Component {
     archFunction = () => {
         return d3.arc()
             .outerRadius(() => {
-                return this.props.outerRadius * this.props.horizonWidth;
+                return this.props.outerRadius * this.props.ringWidth;
             })
             .innerRadius(() => {
-                return this.props.innerRadius * this.props.horizonWidth;
+                return this.props.innerRadius * this.props.ringWidth;
             })
             .startAngle(() => {
                 return Math.PI/2;

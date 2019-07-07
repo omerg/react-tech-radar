@@ -16,14 +16,12 @@ class Radar extends Component {
     constructor(props) {
         super(props);
         const angle = 360 / this.props.quadrants.length;
-        const points = this.processRadarData(this.props.quadrants, this.props.horizons, this.props.data);
 
         //create ref
         this.myRef = React.createRef();
 
         this.state = {
-            angle: angle,
-            points: points
+            angle: angle
         }
     }
 
@@ -43,7 +41,7 @@ class Radar extends Component {
 
                             //get points that belong to this quadrant
                             const data = this.props.data.filter((element) => element.quadrant === value);
-                            const points = this.processRadarData(this.props.quadrants, this.props.horizons, data);
+                            const points = this.processRadarData(this.props.quadrants, this.props.rings, data);
                             const margin = 5;
 
                             return (
@@ -52,7 +50,7 @@ class Radar extends Component {
                                     width={this.props.width}
                                     key={index}
                                     index={index}
-                                    horizons={this.props.horizons}
+                                    rings={this.props.rings}
                                     angle={this.state.angle}
                                     name={value}
                                     fontSize={this.props.fontSize}
@@ -67,7 +65,7 @@ class Radar extends Component {
         )
     }
 
-    processRadarData = (quadrants, horizons, data) => {
+    processRadarData = (quadrants, rings, data) => {
 
         // go through the data
         const results = [];
@@ -85,13 +83,13 @@ class Radar extends Component {
                 }
             }
 
-            const randomPosition = this.getPositionByQuadrant(horizons, entry);
+            const randomPosition = this.getPositionByQuadrant(rings, entry);
             const positionAngle = Math.random();
-            const horizonWidth = 0.95 * this.props.width / 2;
+            const ringWidth = 0.95 * this.props.width / 2;
 
             //theta is the position in the quadrant
             const theta = (positionAngle * angle) + quadrant_delta;
-            const r = randomPosition * horizonWidth;
+            const r = randomPosition * ringWidth;
             const cart = this.polarToCartesian(r, theta);
             const blip = {
                 id: i,
@@ -111,12 +109,12 @@ class Radar extends Component {
         return [x, y];
     };
 
-    getPositionByQuadrant = (horizons, history) => {
-        const horizonCount = horizons.length;
-        const margin = (1 / horizonCount * 0.1);
-        const horizonIndex = horizons.indexOf(history.horizon);
-        const posStart = (1 / horizonCount * horizonIndex) + margin;
-        const posLength = Math.abs((Math.random() / horizonCount) - (margin * 2));
+    getPositionByQuadrant = (rings, history) => {
+        const ringCount = rings.length;
+        const margin = (1 / ringCount * 0.1);
+        const ringIndex = rings.indexOf(history.ring);
+        const posStart = (1 / ringCount * ringIndex) + margin;
+        const posLength = Math.abs((Math.random() / ringCount) - (margin * 2));
         return posStart + posLength;
     };
 }

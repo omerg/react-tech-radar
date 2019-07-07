@@ -15,12 +15,12 @@ class Quadrant extends Component {
     constructor(props) {
         super(props);
 
-        const horizonWidth = 0.95* this.props.width / 2;
-        const horizon_unit = horizonWidth / this.props.horizons.length;
+        const ringWidth = 0.95* this.props.width / 2;
+        const ring_unit = ringWidth / this.props.rings.length;
 
         this.state = {
-            horizonWidth: horizonWidth,
-            horizon_unit: horizon_unit
+            ringWidth: ringWidth,
+            ring_unit: ring_unit
         };
 
     }
@@ -38,31 +38,31 @@ class Quadrant extends Component {
         return (
             <Fragment>
                 <Line
-                    x2={this.state.horizonWidth}
+                    x2={this.state.ringWidth}
                     y2={0}
                     stroke={this.context(this.props.index)}
                 />
 
 
-                {this.props.horizons.map((horizonValue, horizonIndex) => {
-                    const horizonsLength = this.props.horizons.length;
-                    const title = horizonIndex ===  this.props.horizons.length - 1 ? this.props.name : null;
+                {this.props.rings.map((ringValue, ringIndex) => {
+                    const ringsLength = this.props.rings.length;
+                    const title = ringIndex ===  this.props.rings.length - 1 ? this.props.name : null;
                     return (
                         <g>
                             <Text
-                                name={horizonValue}
-                                dx={20 + (horizonIndex * this.state.horizonWidth / horizonsLength)}
+                                name={ringValue}
+                                dx={20 + (ringIndex * this.state.ringWidth / ringsLength)}
                                 fontSize={this.props.fontSize}
                             />
                             <Path
-                                key={this.props.index + "-" + horizonIndex}
+                                key={this.props.index + "-" + ringIndex}
                                 quadIndex={this.props.index}
-                                horizonIndex={horizonIndex}
-                                horizonWidth={this.state.horizonWidth}
-                                horizonsLength={horizonsLength}
+                                ringIndex={ringIndex}
+                                ringWidth={this.state.ringWidth}
+                                ringsLength={ringsLength}
                                 quad_angle={radialAngle}
-                                outerRadius={(horizonIndex + 1) / horizonsLength}
-                                innerRadius={horizonIndex / horizonsLength}
+                                outerRadius={(ringIndex + 1) / ringsLength}
+                                innerRadius={ringIndex / ringsLength}
                                 title={title}
                             />
                         </g>
