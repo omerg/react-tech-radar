@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as d3 from "d3";
-import {RadarContents, QuadrantGroup} from "./Radar.style";
+import {QuadrantGroup, RadarContents} from "./Radar.style";
 
 import Quadrant from "../Quadrant/Quadrant";
 import Item from "../Item/Item";
@@ -40,20 +40,28 @@ class Radar extends Component {
                 <g transform={"translate(" + this.props.width / 2 + "," + this.props.width / 2 + ")"}>
                     <QuadrantGroup>
                         {this.props.quadrants.map((value, index) => {
-                            //if (index = 3)    //zoom trial
-                            return <Quadrant
-                                width={this.props.width}
-                                key={index}
-                                index={index}
-                                horizons={this.props.horizons}
-                                angle={this.state.angle}
-                                name={value}
-                                fontSize={this.props.fontSize}
-                            />
+
+                            //get points that belong to this quadrant
+                            const data = this.props.data.filter((element) => element.quadrant === value);
+                            const points = this.processRadarData(this.props.quadrants, this.props.horizons, data);
+                            const margin = 5;
+
+                            return (
+                            <g transform={" rotate(" + 360 / this.props.quadrants.length * index + ") translate(" + margin + "," + margin + ")  "}>
+                                <Quadrant
+                                    width={this.props.width}
+                                    key={index}
+                                    index={index}
+                                    horizons={this.props.horizons}
+                                    angle={this.state.angle}
+                                    name={value}
+                                    fontSize={this.props.fontSize}
+                                />
+                                {points.map((value, index) => <Item key={index} data={value}/>)}
+                            </g>)
                         })}
                     </QuadrantGroup>
-                    {this.state.points.map((value, index) => <Item key={index} data={value}/>)}
-                </g>
+               </g>
 
             </RadarContents>
         )

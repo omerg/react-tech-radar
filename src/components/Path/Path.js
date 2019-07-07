@@ -58,10 +58,10 @@ class Path extends Component {
                 return this.props.innerRadius * this.props.horizonWidth;
             })
             .startAngle(() => {
-                return this.props.quadIndex * this.props.quad_angle + Math.PI/2;
+                return Math.PI/2;
             })
             .endAngle(() => {
-                return (this.props.quadIndex + 1) * this.props.quad_angle + Math.PI/2;
+                return this.props.quad_angle + Math.PI/2;
             });
     }
 }

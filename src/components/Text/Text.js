@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import TextWrapper from "./Text.style";
 
 class Text extends Component {
 
@@ -17,20 +18,19 @@ class Text extends Component {
 
     render() {
         return (
-            <text className={"quadrant"}
+            <TextWrapper className={"quadrant"}
                   fontSize={this.props.fontSize}
                   dx={this.props.dx}
-                  transform={'rotate(' + this.props.rotationAngle + ')'}
             >
                 {this.props.name}
-            </text>
+            </TextWrapper>
         )
 
     }
 }
 
 Text.defaultProps = {
-    fontSize: "25px",
+    fontSize: "12px",
 };
 
 export default Text;

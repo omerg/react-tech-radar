@@ -38,30 +38,35 @@ class Quadrant extends Component {
         return (
             <Fragment>
                 <Line
-                    x2={Math.cos(radialAngle * this.props.index) * this.state.horizonWidth}
-                    y2={Math.sin(radialAngle * this.props.index) * this.state.horizonWidth}
+                    x2={this.state.horizonWidth}
+                    y2={0}
                     stroke={this.context(this.props.index)}
                 />
-                <Text
-                    name={this.props.name}
-                    dx={this.state.horizon_unit}
-                    rotationAngle={this.props.index * this.props.angle + this.props.angle}
-                    fontSize={this.props.fontSize}
-                />
+
+
                 {this.props.horizons.map((horizonValue, horizonIndex) => {
                     const horizonsLength = this.props.horizons.length;
-                    const title = horizonIndex === 3 ? this.props.name : null;
-                    return <Path
-                        key={this.props.index + "-" + horizonIndex}
-                        quadIndex={this.props.index}
-                        horizonIndex={horizonIndex}
-                        horizonWidth={this.state.horizonWidth}
-                        horizonsLength={horizonsLength}
-                        quad_angle={radialAngle}
-                        outerRadius={(horizonIndex + 1) / horizonsLength}
-                        innerRadius={horizonIndex / horizonsLength}
-                        title={title}
-                    />
+                    const title = horizonIndex ===  this.props.horizons.length - 1 ? this.props.name : null;
+                    return (
+                        <g>
+                            <Text
+                                name={horizonValue}
+                                dx={20 + (horizonIndex * this.state.horizonWidth / horizonsLength)}
+                                fontSize={this.props.fontSize}
+                            />
+                            <Path
+                                key={this.props.index + "-" + horizonIndex}
+                                quadIndex={this.props.index}
+                                horizonIndex={horizonIndex}
+                                horizonWidth={this.state.horizonWidth}
+                                horizonsLength={horizonsLength}
+                                quad_angle={radialAngle}
+                                outerRadius={(horizonIndex + 1) / horizonsLength}
+                                innerRadius={horizonIndex / horizonsLength}
+                                title={title}
+                            />
+                        </g>
+                    )
                 })}
             </Fragment>
 
