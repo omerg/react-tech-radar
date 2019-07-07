@@ -16,17 +16,25 @@ class Radar extends Component {
     constructor(props) {
         super(props);
         const angle = 360 / this.props.quadrants.length;
+        const points = this.processRadarData(this.props.quadrants, this.props.rings, this.props.data);
 
         //create ref
         this.myRef = React.createRef();
 
         this.state = {
-            angle: angle
+            angle: angle,
+            points: points
         }
     }
 
-    componentDidMount() {
+    componentDidUpdate(prevProps, prevState) {
 
+        if (this.props.data !== prevProps.data) {
+            const points = this.processRadarData(this.props.quadrants, this.props.rings, this.props.data);
+            this.setState( {
+                points: points
+            });
+        }
     }
 
     render() {
@@ -55,10 +63,11 @@ class Radar extends Component {
                                     name={value}
                                     fontSize={this.props.fontSize}
                                 />
-                                {points.map((value, index) => <Item key={index} data={value}/>)}
+
                             </g>)
                         })}
                     </QuadrantGroup>
+                    {this.state.points.map((value, index) => <Item key={index} data={value}/>)}
                </g>
 
             </RadarContents>
