@@ -31,7 +31,7 @@ class Radar extends Component {
 
         if (this.props.data !== prevProps.data) {
             const points = this.processRadarData(this.props.quadrants, this.props.rings, this.props.data);
-            this.setState( {
+            this.setState({
                 points: points
             });
         }
@@ -53,22 +53,22 @@ class Radar extends Component {
                             const margin = 5;
 
                             return (
-                            <g transform={" rotate(" + 360 / this.props.quadrants.length * index + ") translate(" + margin + "," + margin + ")  "}>
-                                <Quadrant
-                                    width={this.props.width}
-                                    key={index}
-                                    index={index}
-                                    rings={this.props.rings}
-                                    angle={this.state.angle}
-                                    name={value}
-                                    fontSize={this.props.fontSize}
-                                />
-
-                            </g>)
+                                <g key={index}>
+                                    <Quadrant
+                                        transform={" rotate(" + 360 / this.props.quadrants.length * index + ") translate(" + margin + "," + margin + ")  "}
+                                        width={this.props.width}
+                                        index={index}
+                                        rings={this.props.rings}
+                                        points={points}
+                                        angle={this.state.angle}
+                                        name={value}
+                                        fontSize={this.props.fontSize}
+                                    />
+                                </g>)
                         })}
                     </QuadrantGroup>
-                    {this.state.points.map((value, index) => <Item key={index} data={value}/>)}
-               </g>
+
+                </g>
 
             </RadarContents>
         )
