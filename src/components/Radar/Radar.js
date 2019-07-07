@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import * as d3 from "d3";
-import {QuadrantGroup, RadarContents} from "./Radar.style";
+import {RadarContents} from "./Radar.style";
 
 import Quadrant from "../Quadrant/Quadrant";
-import Item from "../Item/Item";
 
 const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 export const ThemeContext = React.createContext(colorScale);

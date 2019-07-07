@@ -83,7 +83,7 @@ class Quadrant extends Component {
     };
 
     onMouseOut = () => {
-        this.ref.style.opacity ='0.6';
+        this.ref.style.opacity ='0.7';
     };
 }
 
