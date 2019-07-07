@@ -50,6 +50,7 @@ class Quadrant extends Component {
                 />
                 {this.props.horizons.map((horizonValue, horizonIndex) => {
                     const horizonsLength = this.props.horizons.length;
+                    const title = horizonIndex === 3 ? this.props.name : null;
                     return <Path
                         key={this.props.index + "-" + horizonIndex}
                         quadIndex={this.props.index}
@@ -59,6 +60,7 @@ class Quadrant extends Component {
                         quad_angle={radialAngle}
                         outerRadius={(horizonIndex + 1) / horizonsLength}
                         innerRadius={horizonIndex / horizonsLength}
+                        title={title}
                     />
                 })}
             </Fragment>

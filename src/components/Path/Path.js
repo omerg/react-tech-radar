@@ -24,13 +24,27 @@ class Path extends Component {
 
     render() {
         const rgb = d3.rgb(this.context(this.props.quadIndex));
-        const fill=rgb.brighter(this.props.horizonIndex / this.props.horizonsLength * 3);
+        const fill = rgb.brighter(this.props.horizonIndex / this.props.horizonsLength * 3);
+        const uniquePathId = this.props.quadIndex + "-" + this.props.horizonIndex;
+
         return (
-            <path className={"quadrant"}
-                d={this.archFunction()()}
-                fill={fill}
-            >
-            </path>
+            <g>
+                <path id={uniquePathId} className={"quadrant"}
+                      d={this.archFunction()()}
+                      fill={fill}
+                >
+                </path>
+
+                {this.props.title &&
+                <text
+                    dx={this.props.horizonWidth / 2 }
+                >
+                    <textPath href={'#' + uniquePathId}>
+                        {this.props.title}
+                    </textPath>
+                </text>
+                }
+            </g>
         )
 
     }
