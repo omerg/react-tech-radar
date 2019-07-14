@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {ItemWrapper} from "./Item.style";
 
+const MAX_LENGTH = 15;
+
 class Item extends Component {
 
     constructor(props) {
@@ -9,8 +11,14 @@ class Item extends Component {
         //create ref
         this.ref = React.createRef();
 
+        this.shortName = this.props.data.name.length > MAX_LENGTH ?
+            this.props.data.name.substr(0, MAX_LENGTH) + "..." :
+            this.props.data.name;
+
         //create state
-        this.state = {}
+        this.state = {
+            name: this.shortName
+        }
     }
 
     componentDidMount() {
@@ -23,8 +31,8 @@ class Item extends Component {
                 className="blip"
                 id={'blip-' + this.props.data.id}
                 transform={" rotate(" + this.props.rotateDegrees + ") translate(" + (this.props.data.x) + "," + (this.props.data.y) + ")"}
-                onMouseOver={this.onMouseOver}
-                onMouseOut={this.onMouseOut}
+                onMouseEnter={this.onMouseOver}
+                onMouseLeave={this.onMouseOut}
                 ref={el => this.ref = el}
             >
                 <circle r={"4px"}/>
@@ -34,7 +42,7 @@ class Item extends Component {
                       dx={"7px"}
                       dy={"7px"}
                 >
-                    {this.props.data.name}
+                    {this.state.name}
                 </text>
             </ItemWrapper>
         )
@@ -43,10 +51,16 @@ class Item extends Component {
 
     onMouseOver = () => {
         this.ref.style.opacity ='1.0';
+        this.setState({
+            name: this.props.data.name
+        })
     };
 
     onMouseOut = () => {
         this.ref.style.opacity ='0.7';
+        this.setState({
+            name: this.shortName
+        })
     };
 }
 

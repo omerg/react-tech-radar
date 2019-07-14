@@ -13,7 +13,7 @@ export const colorScales = [
 
 //set color scheme by index
 //chose from 0 to 6
-const colorSchemeIndex = 0;
+const colorSchemeIndex = 5;
 
 export const colorScale = d3.scaleOrdinal(d3[colorScales[colorSchemeIndex].name]);
 
