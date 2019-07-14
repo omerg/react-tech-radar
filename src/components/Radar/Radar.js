@@ -15,7 +15,8 @@ class Radar extends Component {
 
         this.state = {
             angle: angle,
-            points: points
+            points: points,
+            margin: 5
         }
     }
 
@@ -34,6 +35,7 @@ class Radar extends Component {
             <RadarContents
                 width={this.props.width}
                 height={this.props.width}
+                style = {{margin: this.state.margin}}
                 ref={el => this.myRef = el}>
                 <g transform={"translate(" + this.props.width / 2 + "," + this.props.width / 2 + ")"}>
                     {this.props.quadrants.map((value, index) => {
@@ -41,14 +43,13 @@ class Radar extends Component {
                         //get points that belong to this quadrant
                         const data = this.props.data.filter((element) => element.quadrant === value);
                         const points = this.processRadarData(this.props.quadrants, this.props.rings, data);
-                        const margin = 5;
 
                         return (
                             <g key={index}>
                                 <Quadrant
-                                    transform={" rotate(" + 360 / this.props.quadrants.length * index + ") translate(" + margin + "," + margin + ")  "}
+                                    transform={" rotate(" + 360 / this.props.quadrants.length * index + ") translate(" + this.state.margin + "," + this.state.margin + ")  "}
                                     rotateDegrees={360 / this.props.quadrants.length * index}
-                                    width={this.props.width}
+                                    width={this.props.width - ( 2 * this.state.margin)}
                                     index={index}
                                     rings={this.props.rings}
                                     points={points}
@@ -84,7 +85,7 @@ class Radar extends Component {
 
             const randomPosition = this.getPositionByQuadrant(rings, entry);
             const positionAngle = Math.random();
-            const ringWidth = 0.95 * this.props.width / 2;
+            const ringWidth = this.props.width / 2;
 
             //theta is the position in the quadrant
             const theta = (positionAngle * angle) + quadrant_delta;
@@ -110,10 +111,10 @@ class Radar extends Component {
 
     getPositionByQuadrant = (rings, history) => {
         const ringCount = rings.length;
-        const margin = (1 / ringCount * 0.1);
+        const margin = 0.1;
         const ringIndex = rings.indexOf(history.ring);
-        const posStart = (1 / ringCount * ringIndex) + margin;
-        const posLength = Math.abs((Math.random() / ringCount) - (margin * 2));
+        const posStart = (1 / ringCount * ringIndex) + (1 / ringCount * margin);
+        const posLength = Math.random() * ((1 / ringCount) - (2 * (1 / ringCount * margin)));
         return posStart + posLength;
     };
 }

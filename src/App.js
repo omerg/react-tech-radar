@@ -33,7 +33,6 @@ class App extends React.Component {
                 <div className="App">
                     <Radar
                         width={this.state.width}
-                        height={this.state.height}
                         rings={this.state.rings}
                         quadrants={this.state.quadrants}
                         data={this.state.data}

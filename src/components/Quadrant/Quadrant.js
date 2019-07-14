@@ -16,7 +16,7 @@ class Quadrant extends Component {
         //create ref
         this.ref = React.createRef();
 
-        const ringWidth = 0.95 * this.props.width / 2;
+        const ringWidth = this.props.width / 2;
         const ring_unit = ringWidth / this.props.rings.length;
 
         this.state = {
