@@ -21,8 +21,7 @@ class App extends React.Component {
                     quadrants={this.state.quadrants}
                     dataUrl={GOOGLE_SPREADSHEET_LINK}
                     cacheTTL={5}
-                    fontSize={12}
-                    collisionTolerance={10}/>
+                    fontSize={12}/>
             </div>
         );
     }

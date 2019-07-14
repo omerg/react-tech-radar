@@ -7,7 +7,8 @@ import * as Tabletop from "tabletop";
 
 const MAX_COLLISION_RETRY_COUNT = 350;
 const TOLERANCE_CONSTANT = 6;
-const DEFAULT_CACHE_TTL = 120;
+const DEFAULT_CACHE_TTL = 120
+const DEFAULT_FONT_SIZE = 12;
 
 class Radar extends Component {
 
@@ -16,11 +17,11 @@ class Radar extends Component {
 
         const angle = 360 / this.props.quadrants.length;
         this.toleranceX = this.props.width / this.props.rings.length / 100 * TOLERANCE_CONSTANT * 4;
-        this.toleranceY = (this.props.fontSize | 12);
+        this.toleranceY = (this.props.fontSize || DEFAULT_FONT_SIZE);
 
-        //console.log("Collision Tolerance (Pixels):");
-        //console.log("x: " + this.toleranceX);
-        //console.log("y: " + this.toleranceY);
+        console.log("Collision Tolerance (Pixels):");
+        console.log("x: " + this.toleranceX);
+        console.log("y: " + this.toleranceY);
 
         //create ref
         this.myRef = React.createRef();

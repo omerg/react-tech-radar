@@ -34,6 +34,7 @@ class Item extends Component {
                 onMouseEnter={this.onMouseOver}
                 onMouseLeave={this.onMouseOut}
                 ref={el => this.ref = el}
+
             >
                 <circle r={"4px"}/>
 
@@ -41,6 +42,8 @@ class Item extends Component {
                       className={"name"}
                       dx={"7px"}
                       dy={"7px"}
+                      fontSize={this.props.fontSize}
+
                 >
                     {this.state.name}
                 </text>
@@ -51,6 +54,7 @@ class Item extends Component {
 
     onMouseOver = () => {
         this.ref.style.opacity ='1.0';
+        this.ref.style.fontWeight = "Bold";
         this.setState({
             name: this.props.data.name
         })
@@ -58,6 +62,7 @@ class Item extends Component {
 
     onMouseOut = () => {
         this.ref.style.opacity ='0.7';
+        this.ref.style.fontWeight = "Normal";
         this.setState({
             name: this.shortName
         })

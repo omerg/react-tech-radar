@@ -5,6 +5,7 @@ import Line from "../Line/Line";
 import Item from "../Item/Item";
 import {QuadrantWrapper} from "./Quadrant.style";
 import {ThemeContext} from "../../theme-context";
+
 class Quadrant extends Component {
 
     //get theme from global context
@@ -70,7 +71,8 @@ class Quadrant extends Component {
                         return (
                             <Item
                                 rotateDegrees={-this.props.rotateDegrees}
-                                key={index} data={value}/>
+                                key={index} data={value}
+                                fontSize={this.props.fontSize}/>
                         )
                     }
                 )}
