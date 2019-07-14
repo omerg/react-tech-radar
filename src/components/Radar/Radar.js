@@ -54,6 +54,7 @@ class Radar extends Component {
                             <g key={index}>
                                 <Quadrant
                                     transform={" rotate(" + 360 / this.props.quadrants.length * index + ") translate(" + margin + "," + margin + ")  "}
+                                    rotateDegrees={360 / this.props.quadrants.length * index}
                                     width={this.props.width}
                                     index={index}
                                     rings={this.props.rings}

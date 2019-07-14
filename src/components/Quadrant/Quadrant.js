@@ -34,43 +34,51 @@ class Quadrant extends Component {
         const radialAngle = 2 * Math.PI / 360 * this.props.angle;
         return (
             <QuadrantWrapper
+                transform={this.props.transform}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
+                onClick={this.onMouseClick}
                 ref={el => this.ref = el}
             >
-                <g transform={this.props.transform}>
-                    <Line
-                        x2={this.state.ringWidth}
-                        y2={0}
-                        stroke={this.context(this.props.index)}
-                    />
 
+                <Line
+                    x2={this.state.ringWidth}
+                    y2={0}
+                    stroke={this.context(this.props.index)}
+                />
 
-                    {this.props.rings.map((ringValue, ringIndex) => {
-                        const ringsLength = this.props.rings.length;
-                        const title = ringIndex === this.props.rings.length - 1 ? this.props.name : null;
+                {this.props.rings.map((ringValue, ringIndex) => {
+                    const ringsLength = this.props.rings.length;
+                    const title = ringIndex === this.props.rings.length - 1 ? this.props.name : null;
+                    return (
+                        <g key={this.props.index + "-" + ringIndex}>
+                            <Text
+                                name={ringValue}
+                                dx={20 + (ringIndex * this.state.ringWidth / ringsLength)}
+                                fontSize={this.props.fontSize}
+                            />
+                            <Path
+                                quadIndex={this.props.index}
+                                ringIndex={ringIndex}
+                                ringWidth={this.state.ringWidth}
+                                ringsLength={ringsLength}
+                                quad_angle={radialAngle}
+                                outerRadius={(ringIndex + 1) / ringsLength}
+                                innerRadius={ringIndex / ringsLength}
+                                title={title}
+                            />
+                        </g>
+                    )
+                })}
+                {this.props.points.map((value, index) => {
                         return (
-                            <g key={this.props.index + "-" + ringIndex}>
-                                <Text
-                                    name={ringValue}
-                                    dx={20 + (ringIndex * this.state.ringWidth / ringsLength)}
-                                    fontSize={this.props.fontSize}
-                                />
-                                <Path
-                                    quadIndex={this.props.index}
-                                    ringIndex={ringIndex}
-                                    ringWidth={this.state.ringWidth}
-                                    ringsLength={ringsLength}
-                                    quad_angle={radialAngle}
-                                    outerRadius={(ringIndex + 1) / ringsLength}
-                                    innerRadius={ringIndex / ringsLength}
-                                    title={title}
-                                />
-                            </g>
+                            <Item
+                                rotateDegrees={-this.props.rotateDegrees}
+                                key={index} data={value}/>
                         )
-                    })}
-                </g>
-                {this.props.points.map((value, index) => <Item key={index} data={value}/>)}
+                    }
+                )}
+
             </QuadrantWrapper>
 
 
@@ -83,7 +91,14 @@ class Quadrant extends Component {
     };
 
     onMouseOut = () => {
-        this.ref.style.opacity ='0.7';
+        this.ref.style.opacity = '0.7';
+    };
+
+    onMouseClick = () => {
+        // const svg = d3.select(this.ref);
+        // svg.transition()
+        //     .duration(2000)
+        //     .style("transform", "translate(-300px, -300px) scale(" + 2 + ") ")
     };
 }
 

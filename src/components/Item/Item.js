@@ -22,15 +22,17 @@ class Item extends Component {
             <ItemWrapper
                 className="blip"
                 id={'blip-' + this.props.data.id}
-                transform={"translate(" + (this.props.data.x) + "," + (this.props.data.y) + ")"}
+                transform={" rotate(" + this.props.rotateDegrees + ") translate(" + (this.props.data.x) + "," + (this.props.data.y) + ")"}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
                 ref={el => this.ref = el}
             >
-                <circle r={"7px"}/>
+                <circle r={"4px"}/>
+
                 <text
                       className={"name"}
-                      dy={"20px"}
+                      dx={"7px"}
+                      dy={"7px"}
                 >
                     {this.props.data.name}
                 </text>
