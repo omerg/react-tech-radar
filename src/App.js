@@ -7,25 +7,37 @@ const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CF
 
 class App extends React.Component {
 
-  state = {
+    state = {
 
-    rings: ['adopt', 'trial', 'assess', 'hold'],
-    quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
-    width: 850,
-    data: []
-  };
+        rings: ['adopt', 'trial', 'assess', 'hold'],
+        quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
+        width: 850,
+        data: []
+    };
 
-  componentDidMount() {
+    componentDidMount() {
+        this.getDataFromCache(GOOGLE_SPREADSHEET_LINK);
+    }
 
-    Tabletop.init({
-          key: GOOGLE_SPREADSHEET_LINK,
-          callback: (data, tabletop) => {
-            this.setState({data: data})
-          },
-          simpleSheet: true
+    getDataFromCache(cacheKey) {
+
+        const cachedData = localStorage.getItem("RADAR_DATA_" + GOOGLE_SPREADSHEET_LINK);
+
+        if (cachedData) {
+            this.setState({data: JSON.parse(cachedData)});
+            return;
         }
-    )
-  }
+
+        Tabletop.init({
+                key: cacheKey,
+                callback: (data, tabletop) => {
+                    this.setState({data: data});
+                    localStorage.setItem("RADAR_DATA" + GOOGLE_SPREADSHEET_LINK, JSON.stringify(data))
+                },
+                simpleSheet: true
+            }
+        )
+    }
 
     render() {
         return (
