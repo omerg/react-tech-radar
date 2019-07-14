@@ -7,6 +7,7 @@ import * as Tabletop from "tabletop";
 
 const MAX_COLLISION_RETRY_COUNT = 350;
 const TOLERANCE_CONSTANT = 6;
+const DEFAULT_CACHE_TTL = 120;
 
 class Radar extends Component {
 
@@ -28,8 +29,8 @@ class Radar extends Component {
             angle: angle,
             margin: 5,
             points: [],
-            data: []
-        }
+            data: this.props.data
+        };
     }
 
     componentDidMount() {
@@ -38,10 +39,6 @@ class Radar extends Component {
             this.props.data.length === 0) &&
             this.props.dataUrl) {
             this.getDataFromCache(this.props.dataUrl);
-        } else {
-            this.setState({
-                data: this.props.data
-            })
         }
     }
 
@@ -198,15 +195,27 @@ class Radar extends Component {
 
     getDataFromCache(cacheKey) {
 
-        localStorage.removeItem("RADAR_DATA_" + this.props.dataUrl);
+        const scheduleInvalidate = () => {
 
-        const timeToLive = this.props.cacheTTL | 10;
+            const radarCache = setTimeout(() => {
+                console.log("Radar cache invalidated: " + radarCache);
+                localStorage.removeItem("RADAR_DATA_" + this.props.dataUrl);
+            }, timeToLive * 1000);
+            console.log("Radar cache set: " + radarCache);
+        };
+
+        const timeToLive = this.props.cacheTTL || DEFAULT_CACHE_TTL;
 
         const cachedData = localStorage.getItem("RADAR_DATA_" + this.props.dataUrl);
 
         if (cachedData) {
-            console.log("cache hit");
+
+            console.log("Cache hit");
             this.setState({data: JSON.parse(cachedData)});
+
+            //clean cache when expired
+            scheduleInvalidate();
+
             return;
         }
 
@@ -221,11 +230,7 @@ class Radar extends Component {
                     localStorage.setItem("RADAR_DATA_" + this.props.dataUrl, JSON.stringify(data))
 
                     //clean cache when expired
-                    const radarCache = setTimeout(() => {
-                        console.log("Radar cache invalidated: " + radarCache);
-                        localStorage.removeItem("RADAR_DATA_" + this.props.dataUrl);
-                    }, timeToLive * 1000);
-                    console.log("Radar cache set: " + radarCache);
+                    scheduleInvalidate();
 
                 },
                 simpleSheet: true
