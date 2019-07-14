@@ -20,8 +20,7 @@ class App extends React.Component {
                     rings={this.state.rings}
                     quadrants={this.state.quadrants}
                     dataUrl={GOOGLE_SPREADSHEET_LINK}
-                    cacheTTL={5}
-                    fontSize={12}/>
+                />
             </div>
         );
     }

@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {RadarContents} from "./Radar.style";
+import PropTypes from 'prop-types';
 
 import Quadrant from "../Quadrant/Quadrant";
-import {colorScale, ThemeContext} from "../../theme-context";
+import {colorScale, DEFAULT_FONT_SIZE, ThemeContext} from "../../theme-context";
 import * as Tabletop from "tabletop";
 
 const MAX_COLLISION_RETRY_COUNT = 350;
 const TOLERANCE_CONSTANT = 6;
-const DEFAULT_CACHE_TTL = 120
-const DEFAULT_FONT_SIZE = 12;
+const DEFAULT_CACHE_TTL = 120;
 
 class Radar extends Component {
 
@@ -239,5 +239,15 @@ class Radar extends Component {
         )
     }
 }
+
+Radar.propTypes = {
+    width: PropTypes.number.isRequired,
+    rings: PropTypes.array.isRequired,
+    quadrants: PropTypes.array.isRequired,
+    data: PropTypes.array,
+    dataUrl: PropTypes.string,
+    cacheTTL: PropTypes.number,
+    fontSize: PropTypes.number
+};
 
 export default Radar;

@@ -15,6 +15,8 @@ export const colorScales = [
 //chose from 0 to 6
 const colorSchemeIndex = 5;
 
+export const DEFAULT_FONT_SIZE = 12;
+
 export const colorScale = d3.scaleOrdinal(d3[colorScales[colorSchemeIndex].name]);
 
 export const ThemeContext = React.createContext(
