@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a598cc09-b7ac-4cb6-8026-981354bc4d78" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Item/Item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Item/Item.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Radar/Radar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Radar/Radar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/theme-context.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme-context.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,19 +58,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Radar/Radar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="249" column="30" selection-start-line="249" selection-start-column="30" selection-end-line="249" selection-end-column="30" />
+            <state relative-caret-position="393">
+              <caret line="179" column="37" selection-start-line="179" selection-start-column="37" selection-end-line="179" selection-end-column="37" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
-                <element signature="n#!!block;n#constructor#0;n#Radar#0" />
-                <element signature="n#!!block;n#componentDidMount#0;n#Radar#0" />
-                <element signature="n#!!block;n#componentDidUpdate#0;n#Radar#0" />
-                <element signature="n#!!block;n#render#0;n#Radar#0" />
-                <element signature="e#3458#4578#0" />
-                <element signature="e#4678#6646#0" />
-                <element signature="e#3470#3590#0" />
-                <element signature="e#3626#3968#0" />
-                <element signature="n#!!block;n#getDataFromCache#0;n#Radar#0" />
+                <element signature="e#933#2324#0" />
+                <element signature="e#2430#4394#0" />
+                <element signature="e#4449#4748#0" />
+                <element signature="e#5135#5574#0" />
               </folding>
             </state>
           </provider>
@@ -138,18 +129,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ringWidth</find>
-      <find>getPositionByQuadrant</find>
-      <find>margin</find>
-      <find>collision de</find>
-      <find>setState</find>
-      <find>collisi</find>
-      <find>props.data</find>
-      <find>collision</find>
       <find>collisionCount</find>
       <find>toler</find>
       <find>rings</find>
-      <find>processRadarData</find>
       <find>TOLERANCE_CONSTANT</find>
       <find>MAX_COLLISION_RETRY_COUNT</find>
       <find>processing</find>
@@ -158,16 +140,25 @@
       <find>collisio</find>
       <find>collision</find>
       <find>getRandomCoordinates</find>
-      <find>getDataFromCache</find>
       <find>cache</find>
       <find>timeToLive</find>
-      <find>fontSize</find>
-      <find>console.log</find>
       <find>points</find>
       <find>DEFAULT_F</find>
       <find>DEFAULT_FONT_SIZE</find>
       <find>DEFAULT_FO</find>
       <find>x&quot;</find>
+      <find>cacheTTL</find>
+      <find>fontSize</find>
+      <find>this.state</find>
+      <find>setPoints</find>
+      <find>setPoi</find>
+      <find>setPo</find>
+      <find>setData</find>
+      <find>useEffe</find>
+      <find>getDataFromCache</find>
+      <find>processRadarData</find>
+      <find>console.</find>
+      <find>console.log</find>
     </findStrings>
     <replaceStrings>
       <replace>rings</replace>
@@ -268,7 +259,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563140608990" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563143671304" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -420,11 +411,18 @@
       <option name="project" value="LOCAL" />
       <updated>1563140134018</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="prop-types added">
+      <created>1563140621120</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1563140621120</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56016000" />
+    <option name="totallyTimeSpent" value="59053000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="859" y="23" width="1058" height="1123" extended-state="0" />
@@ -525,7 +523,8 @@
     <MESSAGE value="visible name shortened until hover&#10;style fixes" />
     <MESSAGE value="cache fixes" />
     <MESSAGE value="style fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="style fixes" />
+    <MESSAGE value="prop-types added" />
+    <option name="LAST_COMMIT_MESSAGE" value="prop-types added" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -741,19 +740,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Radar/Radar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="249" column="30" selection-start-line="249" selection-start-column="30" selection-end-line="249" selection-end-column="30" />
+        <state relative-caret-position="393">
+          <caret line="179" column="37" selection-start-line="179" selection-start-column="37" selection-end-line="179" selection-end-column="37" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="n#!!block;n#constructor#0;n#Radar#0" />
-            <element signature="n#!!block;n#componentDidMount#0;n#Radar#0" />
-            <element signature="n#!!block;n#componentDidUpdate#0;n#Radar#0" />
-            <element signature="n#!!block;n#render#0;n#Radar#0" />
-            <element signature="e#3458#4578#0" />
-            <element signature="e#4678#6646#0" />
-            <element signature="e#3470#3590#0" />
-            <element signature="e#3626#3968#0" />
-            <element signature="n#!!block;n#getDataFromCache#0;n#Radar#0" />
+            <element signature="e#933#2324#0" />
+            <element signature="e#2430#4394#0" />
+            <element signature="e#4449#4748#0" />
+            <element signature="e#5135#5574#0" />
           </folding>
         </state>
       </provider>

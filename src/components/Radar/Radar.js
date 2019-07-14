@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import {RadarContents} from "./Radar.style";
 import PropTypes from 'prop-types';
 
@@ -10,91 +10,26 @@ const MAX_COLLISION_RETRY_COUNT = 350;
 const TOLERANCE_CONSTANT = 6;
 const DEFAULT_CACHE_TTL = 120;
 
-class Radar extends Component {
+function Radar(props) {
 
-    constructor(props) {
-        super(props);
+    const margin = 5;
+    const angle = 360 / props.quadrants.length;
 
-        const angle = 360 / this.props.quadrants.length;
-        this.toleranceX = this.props.width / this.props.rings.length / 100 * TOLERANCE_CONSTANT * 4;
-        this.toleranceY = (this.props.fontSize || DEFAULT_FONT_SIZE);
+    const [data, setData] = useState([]);
 
-        console.log("Collision Tolerance (Pixels):");
-        console.log("x: " + this.toleranceX);
-        console.log("y: " + this.toleranceY);
+    const toleranceX = props.width / props.rings.length / 100 * TOLERANCE_CONSTANT * 4;
+    const toleranceY = (props.fontSize || DEFAULT_FONT_SIZE);
 
-        //create ref
-        this.myRef = React.createRef();
+    console.log("Collision Tolerance (Pixels):");
+    console.log("x: " + toleranceX);
+    console.log("y: " + toleranceY);
 
-        this.state = {
-            angle: angle,
-            margin: 5,
-            points: [],
-            data: this.props.data
-        };
-    }
-
-    componentDidMount() {
-        if ((this.props.data === null ||
-            this.props.data === undefined ||
-            this.props.data.length === 0) &&
-            this.props.dataUrl) {
-            this.getDataFromCache(this.props.dataUrl);
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-        if (this.state.data !== prevState.data) {
-            const points = this.processRadarData(this.props.quadrants, this.props.rings, this.state.data);
-            this.setState({
-                points: points
-            });
-        }
-    }
-
-    render() {
-
-        return (
-            <ThemeContext.Provider value={colorScale}>
-                <RadarContents
-                    width={this.props.width}
-                    height={this.props.width}
-                    style={{margin: this.state.margin}}
-                    ref={el => this.myRef = el}>
-                    <g transform={"translate(" + this.props.width / 2 + "," + this.props.width / 2 + ")"}>
-                        {this.props.quadrants.map((value, index) => {
-
-                            //get points that belong to this quadrant
-                            const filteredPoints = this.state.points.filter((element) => element.quadrant === value);
-
-                            return (
-                                <g key={index}>
-                                    <Quadrant
-                                        transform={" rotate(" + 360 / this.props.quadrants.length * index + ") translate(" + this.state.margin + "," + this.state.margin + ")  "}
-                                        rotateDegrees={360 / this.props.quadrants.length * index}
-                                        width={this.props.width - (2 * this.state.margin)}
-                                        index={index}
-                                        rings={this.props.rings}
-                                        points={filteredPoints}
-                                        angle={this.state.angle}
-                                        name={value}
-                                        fontSize={this.props.fontSize}
-                                    />
-                                </g>)
-                        })}
-                    </g>
-                </RadarContents>
-            </ThemeContext.Provider>
-        )
-    }
-
-    processRadarData = (quadrants, rings, data) => {
+    const processRadarData = (quadrants, rings, data) => {
 
         //order by rings. this will result in better collision
         //detection performance since it is harder to relocate
         // the points in the core ring
-        data.sort(function(a, b) {
+        data.sort(function (a, b) {
             return rings.indexOf(a.ring) - rings.indexOf(b.ring);
         });
 
@@ -110,14 +45,14 @@ class Radar extends Component {
             let quadrant_delta = 0;
 
             // figure out which quadrant this is
-            const angle = 2 * Math.PI / this.props.quadrants.length;
+            const angle = 2 * Math.PI / props.quadrants.length;
             for (let j = 0, len = quadrants.length; j < len; j++) {
                 if (quadrants[j] === entry.quadrant) {
                     quadrant_delta = angle * j;
                 }
             }
-            const coordinates = this.getRandomCoordinates(rings, entry, angle, quadrant_delta, results, collisionCount);
-            if ( collisionCount < MAX_COLLISION_RETRY_COUNT) {
+            const coordinates = getRandomCoordinates(rings, entry, angle, quadrant_delta, results, collisionCount);
+            if (collisionCount < MAX_COLLISION_RETRY_COUNT) {
                 collisionCount = coordinates.collisionCount;
             }
 
@@ -137,7 +72,7 @@ class Radar extends Component {
         return results;
     };
 
-    getRandomCoordinates = (rings, entry, angle, quadrant_delta, results, collisionCount = 0) => {
+    const getRandomCoordinates = (rings, entry, angle, quadrant_delta, results, collisionCount = 0) => {
 
         const polarToCartesian = (r, t) => {
             const x = r * Math.cos(t);
@@ -161,8 +96,8 @@ class Radar extends Component {
             }
 
             for (const result of results) {
-                if (Math.abs(result.x - coordinates.x) <= this.toleranceX &&
-                    Math.abs(result.y - coordinates.y) <= this.toleranceY) {
+                if (Math.abs(result.x - coordinates.x) <= toleranceX &&
+                    Math.abs(result.y - coordinates.y) <= toleranceY) {
 
                     if (++collisionCount >= MAX_COLLISION_RETRY_COUNT) {
                         console.log("max collision retry limit reached: " + collisionCount);
@@ -175,7 +110,7 @@ class Radar extends Component {
 
         const randomPosition = getPositionByQuadrant(entry);
         const positionAngle = Math.random();
-        const ringWidth = this.props.width / 2;
+        const ringWidth = props.width / 2;
 
         //theta is the position in the quadrant
         const theta = (positionAngle * angle) + quadrant_delta;
@@ -186,7 +121,7 @@ class Radar extends Component {
         //recalculate if there is a collision
         const collision = hasCollision(results, data);
         if (collision) {
-            return this.getRandomCoordinates(rings, entry, angle, quadrant_delta, results, collisionCount)
+            return getRandomCoordinates(rings, entry, angle, quadrant_delta, results, collisionCount)
         }
 
         //report number of collisions detected
@@ -194,50 +129,91 @@ class Radar extends Component {
         return data;
     };
 
-    getDataFromCache(cacheKey) {
+    useEffect(() => {
 
-        const scheduleInvalidate = () => {
+        const getDataFromCache = (cacheKey) => {
 
-            const radarCache = setTimeout(() => {
-                console.log("Radar cache invalidated: " + radarCache);
-                localStorage.removeItem("RADAR_DATA_" + this.props.dataUrl);
-            }, timeToLive * 1000);
-            console.log("Radar cache set: " + radarCache);
+            const scheduleInvalidate = () => {
+
+                const radarCache = setTimeout(() => {
+                    console.log("Radar cache invalidated: " + radarCache);
+                    localStorage.removeItem("RADAR_DATA_" + props.dataUrl);
+                }, timeToLive * 1000);
+                console.log("Radar cache set: " + radarCache);
+            };
+
+            const timeToLive = props.cacheTTL || DEFAULT_CACHE_TTL;
+
+            const cachedData = localStorage.getItem("RADAR_DATA_" + props.dataUrl);
+
+            if (cachedData) {
+
+                console.log("Cache hit");
+                setData(JSON.parse(cachedData));
+
+                //clean cache when expired
+                scheduleInvalidate();
+
+                return;
+            }
+
+            Tabletop.init({
+                    key: cacheKey,
+                    callback: (data, tabletop) => {
+
+                        //update state
+                        setData(data);
+
+                        //update cache
+                        localStorage.setItem("RADAR_DATA_" + props.dataUrl, JSON.stringify(data))
+
+                        //clean cache when expired
+                        scheduleInvalidate();
+
+                    },
+                    simpleSheet: true
+                }
+            )
         };
 
-        const timeToLive = this.props.cacheTTL || DEFAULT_CACHE_TTL;
+        getDataFromCache(props.dataUrl);
+    }, [props.dataUrl, props.cacheTTL]);
 
-        const cachedData = localStorage.getItem("RADAR_DATA_" + this.props.dataUrl);
+    const points = processRadarData(props.quadrants, props.rings, data);
 
-        if (cachedData) {
+    return (
+        <ThemeContext.Provider value={colorScale}>
+            <RadarContents
+                width={props.width}
+                height={props.width}
+                style={{margin: margin}}
+            >
+                <g transform={"translate(" + props.width / 2 + "," + props.width / 2 + ")"}>
+                    {props.quadrants.map((value, index) => {
 
-            console.log("Cache hit");
-            this.setState({data: JSON.parse(cachedData)});
+                        //get points that belong to this quadrant
+                        const filteredPoints = points.filter((element) => element.quadrant === value);
 
-            //clean cache when expired
-            scheduleInvalidate();
+                        return (
+                            <g key={index}>
+                                <Quadrant
+                                    transform={" rotate(" + 360 / props.quadrants.length * index + ") translate(" + margin + "," + margin + ")  "}
+                                    rotateDegrees={360 / props.quadrants.length * index}
+                                    width={props.width - (2 * margin)}
+                                    index={index}
+                                    rings={props.rings}
+                                    points={filteredPoints}
+                                    angle={angle}
+                                    name={value}
+                                    fontSize={props.fontSize}
+                                />
+                            </g>)
+                    })}
+                </g>
+            </RadarContents>
+        </ThemeContext.Provider>
+    );
 
-            return;
-        }
-
-        Tabletop.init({
-                key: cacheKey,
-                callback: (data, tabletop) => {
-
-                    //update state
-                    this.setState({data: data});
-
-                    //update cache
-                    localStorage.setItem("RADAR_DATA_" + this.props.dataUrl, JSON.stringify(data))
-
-                    //clean cache when expired
-                    scheduleInvalidate();
-
-                },
-                simpleSheet: true
-            }
-        )
-    }
 }
 
 Radar.propTypes = {
