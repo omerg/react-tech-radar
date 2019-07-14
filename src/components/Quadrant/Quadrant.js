@@ -1,14 +1,10 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import Text from "../Text/Text";
 import Path from "../Path/Path";
 import Line from "../Line/Line";
-import * as d3 from "d3";
 import Item from "../Item/Item";
 import {QuadrantWrapper} from "./Quadrant.style";
-
-const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
-const ThemeContext = React.createContext(colorScale);
-
+import {ThemeContext} from "../../theme-context";
 class Quadrant extends Component {
 
     //get theme from global context

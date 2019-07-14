@@ -1,16 +1,9 @@
 import React, {Component} from 'react';
-import * as d3 from "d3";
 import {RadarContents} from "./Radar.style";
 
 import Quadrant from "../Quadrant/Quadrant";
 
-const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
-export const ThemeContext = React.createContext(colorScale);
-
 class Radar extends Component {
-
-    //get theme from global context
-    static contextType = ThemeContext;
 
     constructor(props) {
         super(props);

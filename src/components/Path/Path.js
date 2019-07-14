@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import * as d3 from "d3";
-
-const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
-const ThemeContext = React.createContext(colorScale);
+import {ThemeContext} from "../../theme-context";
 
 class Path extends Component {
 
@@ -24,7 +22,7 @@ class Path extends Component {
 
     render() {
         const rgb = d3.rgb(this.context(this.props.quadIndex));
-        const fill = rgb.brighter(this.props.ringIndex / this.props.ringsLength * 3);
+        const fill = rgb.brighter(this.props.ringIndex / this.props.ringsLength * 0.9);
         const uniquePathId = this.props.quadIndex + "-" + this.props.ringIndex;
 
         return (
