@@ -6,13 +6,13 @@ Using [npm](https://www.npmjs.com/):
 
     npm install --save react-tech-radar
 
-## Quick (and dirty) Start
+## Quick Start
 
 ```jsx
 import React from 'react';
 import Radar from "react-tech-radar";
 
-const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
+const GOOGLE_SPREADSHEET_LINK = "https://bit.ly/2Y61UGl";
 
 function App() {
 
