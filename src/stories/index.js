@@ -8,7 +8,7 @@ storiesOf('Radar', module)
 
         const state = {
 
-            horizons: ['adopt', 'trial', 'assess', 'hold'],
+            rings: ['adopt', 'trial', 'assess', 'hold'],
             quadrants: ['tools', 'techniques', 'platforms', 'languages & frameworks'],
             width: 380,
             data: [
@@ -17,7 +17,7 @@ storiesOf('Radar', module)
                     description: 'The d3 library for producing visualisation and data driven documents',
                     links: ['http://d3js.org'],
                     quadrant: 'frameworks',
-                    horizon: "adopt"
+                    ring: "adopt"
 
                 },
                 {
@@ -25,17 +25,16 @@ storiesOf('Radar', module)
                     description: 'The d3 library for producing visualisation and data driven documents',
                     links: ['http://d3js.org'],
                     quadrant: 'languages & frameworks',
-                    horizon: "trial"
+                    ring: "trial"
                 }
             ]
         };
             return (
                 <Radar
                     width={state.width}
-                    horizons={state.horizons}
+                    rings={state.rings}
                     quadrants={state.quadrants}
                     data={state.data}
-                    fontSize={"20px"}
                 />
             )
         }
@@ -44,7 +43,7 @@ storiesOf('Radar', module)
 
             let state = {
 
-                horizons: ['discover', 'learn', 'use'],
+                rings: ['discover', 'learn', 'use'],
                 quadrants: ['languages', 'frameworks', 'tools', 'big data', "java"],
                 width: 380,
                 data: [
@@ -68,7 +67,7 @@ storiesOf('Radar', module)
             return (
                 <Radar
                     width={state.width}
-                    horizons={state.horizons}
+                    rings={state.rings}
                     quadrants={state.quadrants}
                     data={state.data}/>
             )
