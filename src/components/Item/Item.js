@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ItemWrapper} from "./Item.style";
-import {DEFAULT_FONT_SIZE} from "../../theme-context";
+import {DEFAULT_FONT_SIZE} from "../theme-context";
 
 const MAX_LENGTH = 15;
 

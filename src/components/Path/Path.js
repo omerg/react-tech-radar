@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as d3 from "d3";
-import {ThemeContext} from "../../theme-context";
+import {ThemeContext} from "../theme-context";
 
 class Path extends Component {
 

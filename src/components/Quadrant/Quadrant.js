@@ -4,7 +4,7 @@ import Path from "../Path/Path";
 import Line from "../Line/Line";
 import Item from "../Item/Item";
 import {QuadrantWrapper} from "./Quadrant.style";
-import {ThemeContext} from "../../theme-context";
+import {ThemeContext} from "../theme-context";
 import * as d3 from "d3";
 
 class Quadrant extends Component {

@@ -3,7 +3,7 @@ import {RadarContents} from "./Radar.style";
 import PropTypes from 'prop-types';
 
 import Quadrant from "../Quadrant/Quadrant";
-import {colorScale, DEFAULT_FONT_SIZE, ThemeContext} from "../../theme-context";
+import {colorScale, DEFAULT_FONT_SIZE, ThemeContext} from "../theme-context";
 import * as Tabletop from "tabletop";
 
 const MAX_COLLISION_RETRY_COUNT = 350;
