@@ -1,29 +1,47 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {RadarContents} from "./Radar.style";
 import PropTypes from 'prop-types';
 
 import Quadrant from "../Quadrant/Quadrant";
-import {colorScale, DEFAULT_FONT_SIZE, ThemeContext} from "../theme-context";
+import {getColorScale, ThemeContext} from "../theme-context";
 import * as Tabletop from "tabletop";
 
+//when point coordinates are calculated randomly, sometimes point coordinates
+// get so close that it would be hard to read the textual part. When such
+//collisions occur, the position generator retries. This constant defines the
+//number of trials where it has to stop.
 const MAX_COLLISION_RETRY_COUNT = 350;
+
+//This value is used to determine whether a collision retry should be triggered or not.
 const TOLERANCE_CONSTANT = 6;
+
+//Data fetched from tabletop is cached for this number of seconds.
 const DEFAULT_CACHE_TTL = 120;
 
 function Radar(props) {
 
-    const margin = 5;
-    const angle = 360 / props.quadrants.length;
-
+    //state variable data
     const [data, setData] = useState([]);
 
+    //context variables
+    const {fontSize, fontFamily, colorScale} = useContext(ThemeContext);
+
+    //margin of radar
+    const margin = 5;
+
+    //some internally used constants
+    const angle = 360 / props.quadrants.length;
+
+    //collision detection constants
     const toleranceX = props.width / props.rings.length / 100 * TOLERANCE_CONSTANT * 4;
-    const toleranceY = (props.fontSize || DEFAULT_FONT_SIZE);
+    const toleranceY = (props.fontSize || fontSize);
 
     console.log("Collision Tolerance (Pixels):");
     console.log("x: " + toleranceX);
     console.log("y: " + toleranceY);
 
+    //given the ring and quadrant of a value,
+    //calculates x and y coordinates
     const processRadarData = (quadrants, rings, data) => {
 
         //order by rings. this will result in better collision
@@ -72,6 +90,8 @@ function Radar(props) {
         return results;
     };
 
+    //used by processRadarData.
+    //generates random coordinates within given range
     const getRandomCoordinates = (rings, entry, angle, quadrant_delta, results, collisionCount = 0) => {
 
         const polarToCartesian = (r, t) => {
@@ -129,6 +149,8 @@ function Radar(props) {
         return data;
     };
 
+    //effect is used to fetch data
+    //when component is mounted.
     useEffect(() => {
 
         const getDataFromCache = (cacheKey) => {
@@ -182,7 +204,12 @@ function Radar(props) {
     const points = processRadarData(props.quadrants, props.rings, data);
 
     return (
-        <ThemeContext.Provider value={colorScale}>
+        //theme context variables can be overridden by props
+        <ThemeContext.Provider value={{
+            fontSize: props.fontSize || fontSize,
+            fontFamily: props.fontFamily || fontFamily,
+            colorScale: props.colorScaleIndex ? getColorScale(props.colorScaleIndex) : colorScale
+        }}>
             <RadarContents
                 width={props.width}
                 height={props.width}
@@ -223,7 +250,8 @@ Radar.propTypes = {
     data: PropTypes.array,
     dataUrl: PropTypes.string,
     cacheTTL: PropTypes.number,
-    fontSize: PropTypes.number
+    fontSize: PropTypes.number,
+    colorScaleIndex: PropTypes.number
 };
 
 export default Radar;

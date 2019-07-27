@@ -5,9 +5,10 @@ import Line from "../Line/Line";
 import Item from "../Item/Item";
 import {QuadrantWrapper} from "./Quadrant.style";
 import {ThemeContext} from "../theme-context";
-import * as d3 from "d3";
 
 class Quadrant extends Component {
+
+    static contextType = ThemeContext;
 
     constructor(props) {
         super(props);
@@ -39,7 +40,7 @@ class Quadrant extends Component {
                 <Line
                     x2={this.state.ringWidth}
                     y2={0}
-                    stroke={this.context(this.props.index)}
+                    stroke={this.context.colorScale(this.props.index)}
                 />
 
                 {this.props.rings.map((ringValue, ringIndex) => {
@@ -50,7 +51,8 @@ class Quadrant extends Component {
                             <Text
                                 name={ringValue}
                                 dx={20 + (ringIndex * this.state.ringWidth / ringsLength)}
-                                fontSize={this.props.fontSize}
+                                fontSize={this.context.fontSize}
+                                fontFamily={this.context.fontFamily}
                             />
                             <Path
                                 quadIndex={this.props.index}
@@ -98,5 +100,4 @@ class Quadrant extends Component {
     };
 }
 
-Quadrant.contextType = ThemeContext;
 export default Quadrant;

@@ -2,23 +2,34 @@ import * as React from "react";
 import * as d3 from "d3";
 
 export const colorScales = [
-    { "name" : "schemeCategory10"},
-    { "name" : "schemeAccent"},
-    { "name" : "schemeDark2"},
-    { "name" : "schemePaired"},
-    { "name" : "schemeSet1"},
-    { "name" : "schemeSet2"},
-    { "name" : "schemeSet3"}
+    {"name": "schemeCategory10"},
+    {"name": "schemeAccent"},
+    {"name": "schemeDark2"},
+    {"name": "schemePaired"},
+    {"name": "schemeSet1"},
+    {"name": "schemeSet2"},
+    {"name": "schemeSet3"}
 ];
 
 //set color scheme by index
 //chose from 0 to 6
-const colorSchemeIndex = 5;
+const DEFAULT_COLOR_SCHEME_INDEX = 5;
+const DEFAULT_FONT_SIZE = 12;
+const DEFAULT_COLOR_SCALE = getColorScale(5);
+const DEFAULT_FONT_FAMILY = "Arial, Helvetica, sans-serif";
 
-export const DEFAULT_FONT_SIZE = 12;
+export function getColorScale(colorScaleIndex) {
 
-export const colorScale = d3.scaleOrdinal(d3[colorScales[colorSchemeIndex].name]);
+    if (colorScaleIndex < 0 || colorScaleIndex >= colorScales.length) {
+        console.warn("Unsupported color scheme. Please choose between 0 and " + (colorScales.length - 1));
+        return DEFAULT_COLOR_SCHEME_INDEX;
+    }
 
-export const ThemeContext = React.createContext(
-    colorScale
-);
+    return d3.scaleOrdinal(d3[colorScales[colorScaleIndex].name]);
+}
+
+export const ThemeContext = React.createContext({
+    colorScale: DEFAULT_COLOR_SCALE,
+    fontFamily: DEFAULT_FONT_FAMILY,
+    fontSize: DEFAULT_FONT_SIZE
+});

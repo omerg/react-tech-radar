@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import TextWrapper from "./Text.style";
+import {ThemeContext} from "../theme-context";
 
 class Text extends Component {
+
+    static contextType = ThemeContext;
 
     constructor(props) {
         super(props);
@@ -19,7 +22,8 @@ class Text extends Component {
     render() {
         return (
             <TextWrapper className={"quadrant"}
-                  fontSize={this.props.fontSize}
+                  fontSize={this.context.fontSize}
+                  fontFamily={this.context.fontFamily}
                   dx={this.props.dx}
             >
                 {this.props.name}
@@ -28,9 +32,5 @@ class Text extends Component {
 
     }
 }
-
-Text.defaultProps = {
-    fontSize: "12px",
-};
 
 export default Text;

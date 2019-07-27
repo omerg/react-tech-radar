@@ -4,6 +4,8 @@ import {ThemeContext} from "../theme-context";
 
 class Path extends Component {
 
+    static contextType = ThemeContext;
+
     constructor(props) {
         super(props);
 
@@ -18,7 +20,7 @@ class Path extends Component {
     }
 
     render() {
-        const rgb = d3.rgb(this.context(this.props.quadIndex));
+        const rgb = d3.rgb(this.context.colorScale(this.props.quadIndex));
         const fill = rgb.brighter(this.props.ringIndex / this.props.ringsLength * 0.9);
         const uniquePathId = this.props.quadIndex + "-" + this.props.ringIndex;
 
@@ -33,6 +35,8 @@ class Path extends Component {
                 {this.props.title &&
                 <text
                     dx={this.props.ringWidth / 2 }
+                    fontSize={this.context.fontSize}
+                    fontFamily={this.context.fontFamily}
                 >
                     <textPath href={'#' + uniquePathId}>
                         {this.props.title}
@@ -61,5 +65,4 @@ class Path extends Component {
     }
 }
 
-Path.contextType = ThemeContext;
 export default Path;

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {ItemWrapper} from "./Item.style";
-import {DEFAULT_FONT_SIZE} from "../theme-context";
 
 const MAX_LENGTH = 15;
 
@@ -43,7 +42,8 @@ class Item extends Component {
                       className={"name"}
                       dx={"7px"}
                       dy={"7px"}
-                      fontSize={this.props.fontSize || DEFAULT_FONT_SIZE}
+                      fontSize={this.context.fontSize}
+                      fontFamily={this.context.fontFamily}
 
                 >
                     {this.state.name}
