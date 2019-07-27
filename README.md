@@ -1,68 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+Using [npm](https://www.npmjs.com/):
 
-### `npm start`
+    npm install --save react-tech-radar
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Quick (and dirty) Start
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```jsx
+import React from 'react';
+import Radar from "react-tech-radar";
 
-### `npm test`
+const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+function App() {
 
-### `npm run build`
+    const setup = {
+        rings: ['adopt', 'trial', 'assess', 'hold'],
+        quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
+        dataUrl: GOOGLE_SPREADSHEET_LINK
+    };
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    return (
+        <div className="App">
+            <Radar {...setup} />
+        </div>
+    );
+}
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+export default App;
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Demo
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+You can see this in action at https://react-tech-radar.netlify.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://react-tech-radar.netlify.com/?path=/story/radar--with-data-from-google-spreadsheet). 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How To Use
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The easiest way to use the app out of the box is to provide a *public* Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field on the first page of the application, and your radar will be generated. The data must conform to the format below for the radar to be generated correctly.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Setting up your data
 
-## Learn More
+You need to make your data public in a form we can digest.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Create a Google Sheet. Give it at least the below column headers, and put in the content that you want:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| name          | ring   | quadrant               | isNew | description                                             |
+|---------------|--------|------------------------|-------|---------------------------------------------------------|
+| Composer      | adopt  | tools                  | TRUE  | Although the idea of dependency management ...          |
+| Canary builds | trial  | techniques             | FALSE | Many projects have external code dependencies ...       |
+| Apache Kylin  | assess | platforms              | TRUE  | Apache Kylin is an open source analytics solution ...   |
+| JSF           | hold   | languages & frameworks | FALSE | We continue to see teams run into trouble using JSF ... |
 
-### Code Splitting
+### Sharing the sheet
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+* In Google sheets, go to 'File', choose 'Publish to the web...' and then click 'Publish'.
+* Close the 'Publish to the web' dialog.
+* Copy the URL of your editable sheet from the browser (Don't worry, this does not share the editable version). 
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.

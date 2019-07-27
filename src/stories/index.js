@@ -10,7 +10,6 @@ storiesOf('Radar', module)
 
             rings: ['adopt', 'trial', 'assess', 'hold'],
             quadrants: ['tools', 'techniques', 'platforms', 'languages', 'frameworks'],
-            width: 380,
             data: [
                 {
                     name: 'D3',
@@ -44,7 +43,6 @@ storiesOf('Radar', module)
 
             rings: ['discover', 'learn', 'use'],
             quadrants: ['languages', 'frameworks', 'tools', 'big data'],
-            width: 380,
             data: [
                 {
                     name: 'Angular 8',
@@ -78,7 +76,6 @@ storiesOf('Radar', module)
         let state = {
             rings: ['adopt', 'trial', 'assess', 'hold'],
             quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
-            width: 850,
             dataUrl: GOOGLE_SPREADSHEET_LINK
         };
         return (
@@ -94,14 +91,12 @@ storiesOf('Radar', module)
         let state = {
             rings: ['adopt', 'trial', 'assess', 'hold'],
             quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
-            width: 400,
         };
         return (
             <Radar
                 width={state.width}
                 rings={state.rings}
-                quadrants={state.quadrants}
-                dataUrl={state.dataUrl}/>
+                quadrants={state.quadrants}/>
         )
     })
     .add('with custom font size and font family', () => {
@@ -123,5 +118,19 @@ storiesOf('Radar', module)
                 fontSize={18}
                 fontFamily={"fantasy"}/>
         )
-    });
+    })
+    .add('without rings', () => {
+
+    const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
+
+    let state = {
+        quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
+        dataUrl: GOOGLE_SPREADSHEET_LINK
+    };
+    return (
+        <Radar
+            quadrants={state.quadrants}
+            dataUrl={state.dataUrl}/>
+    )
+});
 

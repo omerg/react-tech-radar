@@ -18,7 +18,14 @@ const TOLERANCE_CONSTANT = 6;
 //Data fetched from tabletop is cached for this number of seconds.
 const DEFAULT_CACHE_TTL = 120;
 
+//default radar width
+const DEFAULT_WIDTH = 700;
+
 function Radar(props) {
+
+    //manage optional variables
+    const width = props.width || DEFAULT_WIDTH;
+    const rings = props.rings || [""];
 
     //state variable data
     const [data, setData] = useState([]);
@@ -33,7 +40,7 @@ function Radar(props) {
     const angle = 360 / props.quadrants.length;
 
     //collision detection constants
-    const toleranceX = props.width / props.rings.length / 100 * TOLERANCE_CONSTANT * 4;
+    const toleranceX = width / rings.length / 100 * TOLERANCE_CONSTANT * 4;
     const toleranceY = (props.fontSize || fontSize);
 
     console.log("Collision Tolerance (Pixels):");
@@ -130,7 +137,7 @@ function Radar(props) {
 
         const randomPosition = getPositionByQuadrant(entry);
         const positionAngle = Math.random();
-        const ringWidth = props.width / 2;
+        const ringWidth = width / 2;
 
         //theta is the position in the quadrant
         const theta = (positionAngle * angle) + quadrant_delta;
@@ -208,7 +215,7 @@ function Radar(props) {
 
     }, [props.data, props.dataUrl, props.cacheTTL]);
 
-    const points = processRadarData(props.quadrants, props.rings, data);
+    const points = processRadarData(props.quadrants, rings, data);
 
     return (
         //theme context variables can be overridden by props
@@ -218,11 +225,11 @@ function Radar(props) {
             colorScale: props.colorScaleIndex ? getColorScale(props.colorScaleIndex) : colorScale
         }}>
             <RadarContents
-                width={props.width}
-                height={props.width}
+                width={width}
+                height={width}
                 style={{margin: margin}}
             >
-                <g transform={"translate(" + props.width / 2 + "," + props.width / 2 + ")"}>
+                <g transform={"translate(" + width / 2 + "," + width / 2 + ")"}>
                     {props.quadrants.map((value, index) => {
 
                         //get points that belong to this quadrant
@@ -233,9 +240,9 @@ function Radar(props) {
                                 <Quadrant
                                     transform={" rotate(" + 360 / props.quadrants.length * index + ") translate(" + margin + "," + margin + ")  "}
                                     rotateDegrees={360 / props.quadrants.length * index}
-                                    width={props.width - (2 * margin)}
+                                    width={width - (2 * margin)}
                                     index={index}
-                                    rings={props.rings}
+                                    rings={rings}
                                     points={filteredPoints}
                                     angle={angle}
                                     name={value}
@@ -250,9 +257,9 @@ function Radar(props) {
 }
 
 Radar.propTypes = {
-    width: PropTypes.number.isRequired,
-    rings: PropTypes.array.isRequired,
     quadrants: PropTypes.array.isRequired,
+    rings: PropTypes.array.isRequired,
+    width: PropTypes.number,
     data: PropTypes.array,
     dataUrl: PropTypes.string,
     cacheTTL: PropTypes.number,

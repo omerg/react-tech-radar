@@ -3,28 +3,19 @@ import Radar from "./components/Radar/Radar";
 
 const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
 
-class App extends React.Component {
+function App() {
 
-    state = {
+    const setup = {
         rings: ['adopt', 'trial', 'assess', 'hold'],
         quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
-        width: 850,
-        data: []
+        dataUrl: GOOGLE_SPREADSHEET_LINK
     };
 
-    render() {
-        return (
-            <div className="App">
-                <Radar
-                    width={this.state.width}
-                    rings={this.state.rings}
-                    quadrants={this.state.quadrants}
-                    dataUrl={GOOGLE_SPREADSHEET_LINK}
-                />
-            </div>
-        );
-    }
-
+    return (
+        <div className="App">
+            <Radar {...setup} />
+        </div>
+    );
 }
 
 export default App;
