@@ -29,57 +29,57 @@ storiesOf('Radar', module)
                 }
             ]
         };
-            return (
-                <Radar
-                    width={state.width}
-                    rings={state.rings}
-                    quadrants={state.quadrants}
-                    data={state.data}
-                />
-            )
-        })
+        return (
+            <Radar
+                width={state.width}
+                rings={state.rings}
+                quadrants={state.quadrants}
+                data={state.data}
+            />
+        )
+    })
     .add('with 3 rings', () => {
 
-            let state = {
+        let state = {
 
-                rings: ['discover', 'learn', 'use'],
-                quadrants: ['languages', 'frameworks', 'tools', 'big data'],
-                width: 380,
-                data: [
-                    {
-                        name: 'Angular 8',
-                        description: 'The d3 library for producing visualisation and data driven documents',
-                        links: ['http://d3js.org'],
-                        quadrant: 'frameworks',
-                        ring: "use"
+            rings: ['discover', 'learn', 'use'],
+            quadrants: ['languages', 'frameworks', 'tools', 'big data'],
+            width: 380,
+            data: [
+                {
+                    name: 'Angular 8',
+                    description: 'The d3 library for producing visualisation and data driven documents',
+                    links: ['http://d3js.org'],
+                    quadrant: 'frameworks',
+                    ring: "use"
 
-                    },
-                    {
-                        name: 'Rust',
-                        description: 'The d3 library for producing visualisation and data driven documents',
-                        links: ['http://d3js.org'],
-                        quadrant: 'languages',
-                        ring: "learn"
-                    }
-                ]
-            };
-            return (
-                <Radar
-                    width={state.width}
-                    rings={state.rings}
-                    quadrants={state.quadrants}
-                    data={state.data}/>
-            )
-        })
+                },
+                {
+                    name: 'Rust',
+                    description: 'The d3 library for producing visualisation and data driven documents',
+                    links: ['http://d3js.org'],
+                    quadrant: 'languages',
+                    ring: "learn"
+                }
+            ]
+        };
+        return (
+            <Radar
+                width={state.width}
+                rings={state.rings}
+                quadrants={state.quadrants}
+                data={state.data}/>
+        )
+    })
     .add('with data from Google SpreadSheet', () => {
 
         const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
 
         let state = {
-                rings: ['adopt', 'trial', 'assess', 'hold'],
-                quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
-                width: 850,
-                dataUrl: GOOGLE_SPREADSHEET_LINK
+            rings: ['adopt', 'trial', 'assess', 'hold'],
+            quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
+            width: 850,
+            dataUrl: GOOGLE_SPREADSHEET_LINK
         };
         return (
             <Radar
@@ -102,6 +102,26 @@ storiesOf('Radar', module)
                 rings={state.rings}
                 quadrants={state.quadrants}
                 dataUrl={state.dataUrl}/>
+        )
+    })
+    .add('with custom font size and font family', () => {
+
+        const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
+
+        let state = {
+            rings: ['adopt', 'trial', 'assess', 'hold'],
+            quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
+            width: 800,
+            dataUrl: GOOGLE_SPREADSHEET_LINK
+        };
+        return (
+            <Radar
+                width={state.width}
+                rings={state.rings}
+                quadrants={state.quadrants}
+                dataUrl={state.dataUrl}
+                fontSize={18}
+                fontFamily={"fantasy"}/>
         )
     });
 

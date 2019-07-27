@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useRef} from 'react';
 import {ItemWrapper} from "./Item.style";
 import {ThemeContext} from "../theme-context";
 import PropTypes from "prop-types";
@@ -8,28 +8,20 @@ const MAX_LENGTH = 15;
 function Item(props) {
 
     //create ref
-    let ref = React.createRef();
+    let ref = useRef(null);
 
     //context variables
     const {fontSize, fontFamily} = useContext(ThemeContext);
 
     //state variables
-    const [name, setName] = useState(props.data.name);
+    const [isHovered, setIsHovered] = useState(false);
 
     const shortName = props.data.name.length > MAX_LENGTH ?
         props.data.name.substr(0, MAX_LENGTH) + "..." :
         props.data.name;
 
-    const onMouseOver = () => {
-        ref.style.opacity = '1.0';
-        ref.style.fontWeight = "Bold";
-        setName(props.name);
-    };
-
-    const onMouseOut = () => {
-        ref.style.opacity = '0.7';
-        ref.style.fontWeight = "Normal";
-        setName(shortName);
+    const onMouseToggle = () => {
+        setIsHovered(!isHovered);
     };
 
     return (
@@ -37,9 +29,13 @@ function Item(props) {
             className="blip"
             id={'blip-' + props.data.id}
             transform={" rotate(" + props.rotateDegrees + ") translate(" + (props.data.x) + "," + (props.data.y) + ")"}
-            onMouseEnter={onMouseOver}
-            onMouseLeave={onMouseOut}
-            ref={el => ref = el}
+            onMouseEnter={onMouseToggle}
+            onMouseLeave={onMouseToggle}
+            ref={ref}
+            style={{
+                opacity: isHovered ? '1.0' : '0.7',
+                fontWeight: isHovered ? "Bold" : "Normal"
+            }}
         >
             <circle r={"4px"}/>
             <text
@@ -49,7 +45,7 @@ function Item(props) {
                 fontSize={fontSize}
                 fontFamily={fontFamily}
             >
-                {name}
+                {isHovered ? props.data.name : shortName}
             </text>
         </ItemWrapper>
     )
