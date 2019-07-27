@@ -59,7 +59,7 @@ Path.propTypes = {
     quad_angle: PropTypes.number.isRequired,
     outerRadius: PropTypes.number.isRequired,
     innerRadius: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string
 };
 
 export default Path;

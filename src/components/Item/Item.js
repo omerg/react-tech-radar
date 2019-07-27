@@ -53,8 +53,7 @@ function Item(props) {
 
 Item.propTypes = {
     rotateDegrees: PropTypes.number.isRequired,
-    key: PropTypes.number.isRequired,
-    data: PropTypes.array.isRequired
+    data: PropTypes.object.isRequired
 };
 
 export default Item;

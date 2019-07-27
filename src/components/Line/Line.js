@@ -17,7 +17,7 @@ function Line(props) {
 Line.propTypes = {
     x2: PropTypes.number.isRequired,
     y2: PropTypes.number.isRequired,
-    stroke: PropTypes.number.isRequired
+    stroke: PropTypes.string.isRequired
 };
 
 export default Line;
