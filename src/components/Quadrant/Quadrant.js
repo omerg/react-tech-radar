@@ -5,11 +5,9 @@ import Line from "../Line/Line";
 import Item from "../Item/Item";
 import {QuadrantWrapper} from "./Quadrant.style";
 import {ThemeContext} from "../../theme-context";
+import * as d3 from "d3";
 
 class Quadrant extends Component {
-
-    //get theme from global context
-    static contextType = ThemeContext;
 
     constructor(props) {
         super(props);
@@ -100,4 +98,5 @@ class Quadrant extends Component {
     };
 }
 
+Quadrant.contextType = ThemeContext;
 export default Quadrant;

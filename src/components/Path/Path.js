@@ -4,9 +4,6 @@ import {ThemeContext} from "../../theme-context";
 
 class Path extends Component {
 
-    //get theme from global context
-    static contextType = ThemeContext;
-
     constructor(props) {
         super(props);
 
@@ -64,4 +61,5 @@ class Path extends Component {
     }
 }
 
+Path.contextType = ThemeContext;
 export default Path;
