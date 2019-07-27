@@ -1,36 +1,21 @@
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 import TextWrapper from "./Text.style";
 import {ThemeContext} from "../theme-context";
 
-class Text extends Component {
+function Text(props) {
 
-    static contextType = ThemeContext;
+    //context variables
+    const {fontSize, fontFamily} = useContext(ThemeContext);
 
-    constructor(props) {
-        super(props);
-
-        //create ref
-        this.myRef = React.createRef();
-
-        //create state
-        this.state = {}
-    }
-
-    componentDidMount() {
-    }
-
-    render() {
-        return (
-            <TextWrapper className={"quadrant"}
-                  fontSize={this.context.fontSize}
-                  fontFamily={this.context.fontFamily}
-                  dx={this.props.dx}
-            >
-                {this.props.name}
-            </TextWrapper>
-        )
-
-    }
+    return (
+        <TextWrapper className={"quadrant"}
+                     fontSize={fontSize}
+                     fontFamily={fontFamily}
+                     dx={props.dx}
+        >
+            {props.name}
+        </TextWrapper>
+    )
 }
 
 export default Text;
