@@ -4,27 +4,27 @@ import {storiesOf} from '@storybook/react';
 import Radar from "../components/Radar/Radar";
 
 storiesOf('Radar', module)
-    .add('with 4 quadrants', () => {
+    .add('with 5 quadrants', () => {
 
         const state = {
 
             rings: ['adopt', 'trial', 'assess', 'hold'],
-            quadrants: ['tools', 'techniques', 'platforms', 'languages & frameworks'],
+            quadrants: ['tools', 'techniques', 'platforms', 'languages', 'frameworks'],
             width: 380,
             data: [
                 {
-                    name: 'd3',
+                    name: 'D3',
                     description: 'The d3 library for producing visualisation and data driven documents',
                     links: ['http://d3js.org'],
-                    quadrant: 'frameworks',
+                    quadrant: 'tools',
                     ring: "adopt"
 
                 },
                 {
-                    name: 'typeScript',
+                    name: 'TypeScript',
                     description: 'The d3 library for producing visualisation and data driven documents',
                     links: ['http://d3js.org'],
-                    quadrant: 'languages & frameworks',
+                    quadrant: 'languages',
                     ring: "trial"
                 }
             ]
@@ -37,30 +37,29 @@ storiesOf('Radar', module)
                     data={state.data}
                 />
             )
-        }
-    )
-    .add('with 5 quadrants', () => {
+        })
+    .add('with 3 rings', () => {
 
             let state = {
 
                 rings: ['discover', 'learn', 'use'],
-                quadrants: ['languages', 'frameworks', 'tools', 'big data', "java"],
+                quadrants: ['languages', 'frameworks', 'tools', 'big data'],
                 width: 380,
                 data: [
                     {
-                        name: 'd3',
+                        name: 'Angular 8',
                         description: 'The d3 library for producing visualisation and data driven documents',
                         links: ['http://d3js.org'],
                         quadrant: 'frameworks',
-                        horizon: "use"
+                        ring: "use"
 
                     },
                     {
-                        name: 'd4',
+                        name: 'Rust',
                         description: 'The d3 library for producing visualisation and data driven documents',
                         links: ['http://d3js.org'],
                         quadrant: 'languages',
-                        horizon: "learn"
+                        ring: "learn"
                     }
                 ]
             };
@@ -71,6 +70,38 @@ storiesOf('Radar', module)
                     quadrants={state.quadrants}
                     data={state.data}/>
             )
-        }
-    );
+        })
+    .add('with data from Google SpreadSheet', () => {
+
+        const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
+
+        let state = {
+                rings: ['adopt', 'trial', 'assess', 'hold'],
+                quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
+                width: 850,
+                dataUrl: GOOGLE_SPREADSHEET_LINK
+        };
+        return (
+            <Radar
+                width={state.width}
+                rings={state.rings}
+                quadrants={state.quadrants}
+                dataUrl={state.dataUrl}/>
+        )
+    })
+    .add('with no data provided', () => {
+
+        let state = {
+            rings: ['adopt', 'trial', 'assess', 'hold'],
+            quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
+            width: 400,
+        };
+        return (
+            <Radar
+                width={state.width}
+                rings={state.rings}
+                quadrants={state.quadrants}
+                dataUrl={state.dataUrl}/>
+        )
+    });
 

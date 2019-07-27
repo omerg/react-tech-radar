@@ -198,8 +198,15 @@ function Radar(props) {
             )
         };
 
-        getDataFromCache(props.dataUrl);
-    }, [props.dataUrl, props.cacheTTL]);
+        if (props.data) {
+            setData(props.data);
+        } else if (props.dataUrl) {
+            getDataFromCache(props.dataUrl);
+        } else {
+            console.warn("No Data Provided");
+        }
+
+    }, [props.data, props.dataUrl, props.cacheTTL]);
 
     const points = processRadarData(props.quadrants, props.rings, data);
 

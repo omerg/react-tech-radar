@@ -1316,6 +1316,13 @@
     react-inspector "^3.0.2"
     uuid "^3.3.2"
 
+"@storybook/addon-console@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-console/-/addon-console-1.2.1.tgz#f338401661b4636118b13839848061e996d4e104"
+  integrity sha512-2iDbDTipWonvRpIqLLntfhCGvawFFvoG1xyErpyL7K/HRdQ1zzIvR1Qm83S7TK8Vg+RzZWm4wcDbxx7WOsFCNg==
+  dependencies:
+    global "^4.3.2"
+
 "@storybook/addon-links@^5.1.9":
   version "5.1.9"
   resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-5.1.9.tgz#944237bfb318cf4741b417d2b452b0b644650868"
@@ -1559,7 +1566,7 @@
     memoizerific "^1.11.3"
     qs "^6.6.0"
 
-"@storybook/theming@5.1.9":
+"@storybook/theming@5.1.9", "@storybook/theming@latest":
   version "5.1.9"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-5.1.9.tgz#c425f5867fae0db79e01112853b1808332a5f1a2"
   integrity sha512-4jIFJwTWVf9tsv27noLoFHlKC2Jl9DHV3q+rxGPU8bTNbufCu4oby82SboO5GAKuS3eu1cxL1YY9pYad9WxfHg==
