@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {ItemWrapper} from "./Item.style";
+import {ThemeContext} from "../theme-context";
 
 const MAX_LENGTH = 15;
 
 class Item extends Component {
+
+    static contextType = ThemeContext;
 
     constructor(props) {
         super(props);
