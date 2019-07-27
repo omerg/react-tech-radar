@@ -239,7 +239,6 @@ function Radar(props) {
                                     points={filteredPoints}
                                     angle={angle}
                                     name={value}
-                                    fontSize={props.fontSize}
                                 />
                             </g>)
                     })}

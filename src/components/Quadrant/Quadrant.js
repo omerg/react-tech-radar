@@ -1,103 +1,98 @@
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 import Text from "../Text/Text";
 import Path from "../Path/Path";
 import Line from "../Line/Line";
 import Item from "../Item/Item";
 import {QuadrantWrapper} from "./Quadrant.style";
 import {ThemeContext} from "../theme-context";
+import PropTypes from "prop-types";
 
-class Quadrant extends Component {
+function Quadrant(props) {
 
-    static contextType = ThemeContext;
+    //context variables
+    const {fontSize, fontFamily, colorScale} = useContext(ThemeContext);
 
-    constructor(props) {
-        super(props);
+    let ref = React.createRef();
+    const ringWidth = props.width / 2;
+    const radialAngle = 2 * Math.PI / 360 * props.angle;
 
-        //create ref
-        this.ref = React.createRef();
-
-        const ringWidth = this.props.width / 2;
-        const ring_unit = ringWidth / this.props.rings.length;
-
-        this.state = {
-            ringWidth: ringWidth,
-            ring_unit: ring_unit
-        };
-
-    }
-
-    render() {
-        const radialAngle = 2 * Math.PI / 360 * this.props.angle;
-        return (
-            <QuadrantWrapper
-                transform={this.props.transform}
-                onMouseOver={this.onMouseOver}
-                onMouseOut={this.onMouseOut}
-                onClick={this.onMouseClick}
-                ref={el => this.ref = el}
-            >
-
-                <Line
-                    x2={this.state.ringWidth}
-                    y2={0}
-                    stroke={this.context.colorScale(this.props.index)}
-                />
-
-                {this.props.rings.map((ringValue, ringIndex) => {
-                    const ringsLength = this.props.rings.length;
-                    const title = ringIndex === this.props.rings.length - 1 ? this.props.name : null;
-                    return (
-                        <g key={this.props.index + "-" + ringIndex}>
-                            <Text
-                                name={ringValue}
-                                dx={20 + (ringIndex * this.state.ringWidth / ringsLength)}
-                                fontSize={this.context.fontSize}
-                                fontFamily={this.context.fontFamily}
-                            />
-                            <Path
-                                quadIndex={this.props.index}
-                                ringIndex={ringIndex}
-                                ringWidth={this.state.ringWidth}
-                                ringsLength={ringsLength}
-                                quad_angle={radialAngle}
-                                outerRadius={(ringIndex + 1) / ringsLength}
-                                innerRadius={ringIndex / ringsLength}
-                                title={title}
-                            />
-                        </g>
-                    )
-                })}
-                {this.props.points.map((value, index) => {
-                        return (
-                            <Item
-                                rotateDegrees={-this.props.rotateDegrees}
-                                key={index} data={value}
-                                fontSize={this.props.fontSize}/>
-                        )
-                    }
-                )}
-
-            </QuadrantWrapper>
-
-
-        )
-
-    }
-
-    onMouseOver = () => {
-        this.ref.style.opacity = '1.0';
+    const onMouseOver = () => {
+        ref.style.opacity = '1.0';
     };
 
-    onMouseOut = () => {
-        this.ref.style.opacity = '0.7';
+    const onMouseOut = () => {
+        ref.style.opacity = '0.7';
     };
 
-    onMouseClick = () => {
-        // const svg = d3.select(this.ref);
+    const onMouseClick = () => {
+        // const svg = d3.select(ref);
         // svg.transition()
         //     .duration(2000)
         //     .style("transform", "translate(-300px, -300px) scale(" + 2 + ") ")
     };
+
+    return (
+        <QuadrantWrapper
+            transform={props.transform}
+            onMouseOver={onMouseOver}
+            onMouseOut={onMouseOut}
+            onClick={onMouseClick}
+            ref={el => ref = el}
+        >
+
+            <Line
+                x2={ringWidth}
+                y2={0}
+                stroke={colorScale(props.index)}
+            />
+
+            {props.rings.map((ringValue, ringIndex) => {
+                const ringsLength = props.rings.length;
+                const title = ringIndex === props.rings.length - 1 ? props.name : null;
+                return (
+                    <g key={props.index + "-" + ringIndex}>
+                        <Text
+                            name={ringValue}
+                            dx={20 + (ringIndex * ringWidth / ringsLength)}
+                            fontSize={fontSize}
+                            fontFamily={fontFamily}
+                        />
+                        <Path
+                            quadIndex={props.index}
+                            ringIndex={ringIndex}
+                            ringWidth={ringWidth}
+                            ringsLength={ringsLength}
+                            quad_angle={radialAngle}
+                            outerRadius={(ringIndex + 1) / ringsLength}
+                            innerRadius={ringIndex / ringsLength}
+                            title={title}
+                        />
+                    </g>
+                )
+            })}
+            {props.points.map((value, index) => {
+                    return (
+                        <Item
+                            rotateDegrees={-props.rotateDegrees}
+                            key={index}
+                            data={value}/>
+                    )
+                }
+            )}
+
+        </QuadrantWrapper>
+    )
 }
+
+Quadrant.propTypes = {
+    transform: PropTypes.string.isRequired,
+    rotateDegrees: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
+    rings: PropTypes.array.isRequired,
+    points: PropTypes.array.isRequired,
+    angle: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
+};
 
 export default Quadrant;

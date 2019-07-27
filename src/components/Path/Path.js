@@ -1,68 +1,65 @@
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 import * as d3 from "d3";
 import {ThemeContext} from "../theme-context";
+import PropTypes from "prop-types";
 
-class Path extends Component {
+function Path(props) {
 
-    static contextType = ThemeContext;
+    //context variables
+    const {fontSize, fontFamily, colorScale} = useContext(ThemeContext);
 
-    constructor(props) {
-        super(props);
+    const rgb = d3.rgb(colorScale(props.quadIndex));
+    const fill = rgb.brighter(props.ringIndex / props.ringsLength * 0.9);
+    const uniquePathId = props.quadIndex + "-" + props.ringIndex;
 
-        //create ref
-        this.myRef = React.createRef();
-
-        //create state
-        this.state = {}
-    }
-
-    componentDidMount() {
-    }
-
-    render() {
-        const rgb = d3.rgb(this.context.colorScale(this.props.quadIndex));
-        const fill = rgb.brighter(this.props.ringIndex / this.props.ringsLength * 0.9);
-        const uniquePathId = this.props.quadIndex + "-" + this.props.ringIndex;
-
-        return (
-            <g>
-                <path id={uniquePathId} className={"quadrant"}
-                      d={this.archFunction()()}
-                      fill={fill}
-                >
-                </path>
-
-                {this.props.title &&
-                <text
-                    dx={this.props.ringWidth / 2 }
-                    fontSize={this.context.fontSize}
-                    fontFamily={this.context.fontFamily}
-                >
-                    <textPath href={'#' + uniquePathId}>
-                        {this.props.title}
-                    </textPath>
-                </text>
-                }
-            </g>
-        )
-
-    }
-
-    archFunction = () => {
+    const archFunction = () => {
         return d3.arc()
             .outerRadius(() => {
-                return this.props.outerRadius * this.props.ringWidth;
+                return props.outerRadius * props.ringWidth;
             })
             .innerRadius(() => {
-                return this.props.innerRadius * this.props.ringWidth;
+                return props.innerRadius * props.ringWidth;
             })
             .startAngle(() => {
-                return Math.PI/2;
+                return Math.PI / 2;
             })
             .endAngle(() => {
-                return this.props.quad_angle + Math.PI/2;
+                return props.quad_angle + Math.PI / 2;
             });
-    }
+    };
+
+    return (
+        <g>
+            <path id={uniquePathId} className={"quadrant"}
+                  d={archFunction()()}
+                  fill={fill}
+            >
+            </path>
+
+            {props.title &&
+            <text
+                dx={props.ringWidth / 2}
+                fontSize={fontSize}
+                fontFamily={fontFamily}
+            >
+                <textPath href={'#' + uniquePathId}>
+                    {props.title}
+                </textPath>
+            </text>
+            }
+        </g>
+    )
 }
+
+Path.propTypes = {
+    quadIndex: PropTypes.number.isRequired,
+    ringIndex: PropTypes.number.isRequired,
+    ringWidth: PropTypes.number.isRequired,
+    ringsLength: PropTypes.number.isRequired,
+    quad_angle: PropTypes.number.isRequired,
+    outerRadius: PropTypes.number.isRequired,
+    innerRadius: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired
+};
 
 export default Path;
