@@ -1,7 +1,6 @@
 
-<a href="https://github.com/reactiveui/reactiveui">
-  <img width="160" heigth="160" src="https://raw.githubusercontent.com/omerg/react-tech-radar/master/screenshots/Screenshot_1.png">
-</a>
+
+<img src="https://raw.githubusercontent.com/omerg/react-tech-radar/master/screenshots/Screenshot_1.png">
 
 # React Tech Radar
 
