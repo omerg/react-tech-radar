@@ -149,7 +149,7 @@ You can see various states of the radar (such as color schemes, results of confi
 
 If you want a very quick data integration, you can check out the Google Spreadsheets example.
 
-The source code for the example is in [examples](https://raw.githubusercontent.com/omerg/react-tech-radar/master/examples) folder and also there is a running example in [Storybook](https://react-tech-radar.netlify.com).
+The source code for the example is in 'examples' folder and also there is a running example in [Storybook](https://react-tech-radar.netlify.com).
 
 If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://react-tech-radar.netlify.com/?path=/story/basics--with-data-from-google-spreadsheet)
 
