@@ -151,8 +151,15 @@ If you want a very quick data integration, you can check out the Google Spreadsh
 
 The source code for the example is in 'examples' folder and also there is a running example in [Storybook](https://react-tech-radar.netlify.com).
 
-If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://react-tech-radar.netlify.com/?path=/story/basics--with-data-from-google-spreadsheet)
+If you plug in [this data](https://docs.google.com/spreadsheets/d/1XkfUX8auztSkMoHwBEraDjHZgx7NEH59OyUZH-0IQGw/edit) you'll see [this visualization](https://react-tech-radar.netlify.com/?path=/story/basics--with-data-from-google-spreadsheet)
 
+#### Sharing the sheet
+
+ - In Google sheets, go to 'File', choose 'Publish to the web...' and then click 'Publish'.
+ - Close the 'Publish to the web' dialog.
+ - Copy the URL of your editable sheet from the browser (Don't worry, this does not share the editable version).
+
+The URL will be similar to https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit. In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
 ## License
 
 [MIT](./LICENSE)
