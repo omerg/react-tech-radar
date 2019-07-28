@@ -1,5 +1,5 @@
 
-<img width="800px" src="https://raw.githubusercontent.com/omerg/react-tech-radar/master/screenshots/Screenshot_1.png">
+<img width="600px" src="https://raw.githubusercontent.com/omerg/react-tech-radar/master/screenshots/Screenshot_1.png">
 
 # React Tech Radar
 
