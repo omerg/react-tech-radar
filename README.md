@@ -67,24 +67,26 @@ data prop is an array of JSON elements representing the description of technolog
 Elements in the array should be in the following form:
 
 __Example:__
-```json
+```json5
+{
 data: [
-    {
-        name: 'D3',
-        quadrant: 'tools',
-        ring: "assess"
-    },
-    {
-        name: 'TypeScript',
-        quadrant: 'languages',
-        ring: "trial"
-    },
-    {
-        name: 'Storybook',
-        quadrant: 'tools',
-        ring: "adopt"
-    }
-]
+          {
+              name: 'D3',
+              quadrant: 'tools',
+              ring: "assess"
+          },
+          {
+              name: 'TypeScript',
+              quadrant: 'languages',
+              ring: "trial"
+          },
+          {
+              name: 'Storybook',
+              quadrant: 'tools',
+              ring: "adopt"
+          }
+      ]
+}
 ```
 
 ### quadrants
@@ -95,8 +97,10 @@ Any data element with the matching quadrant value goes into this slice
 Elements in the array should be in the following form:
 
 __Example:__
-```json
-    quadrants: ['tools', 'techniques', 'platforms', 'languages']
+```json5
+{
+  quadrants: ['tools', 'techniques', 'platforms', 'languages']
+}
 ```
 
 ### rings
@@ -106,8 +110,10 @@ For each element in rings, every quadrant is divided into rings. Innermost ring 
 it usually represents the place for the most adopted technologies.
 
 __Example:__
-```json
-    rings: ['adopt', 'trial', 'assess', 'hold']
+```json5
+{
+  rings: ['adopt', 'trial', 'assess', 'hold'],
+}
 ```
 
 ## Configuration Options
