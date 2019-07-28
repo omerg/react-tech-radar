@@ -11,7 +11,6 @@ function App() {
                 name: 'D3',
                 quadrant: 'tools',
                 ring: "assess"
-
             },
             {
                 name: 'TypeScript',

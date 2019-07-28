@@ -238,8 +238,8 @@ function Radar(props) {
 Radar.propTypes = {
     quadrants: PropTypes.array.isRequired,
     rings: PropTypes.array,
-    width: PropTypes.number,
     data: PropTypes.array,
+    width: PropTypes.number,
     fontSize: PropTypes.number,
     itemFontSize: PropTypes.number,
     colorScaleIndex: PropTypes.number,
