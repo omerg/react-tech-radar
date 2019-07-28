@@ -1,7 +1,7 @@
 {
   "name": "react-tech-radar",
   "description": "A React Component for Tech Radar inspired by ThoughtWorks' technology decision sharing project",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "author": "Omer Gurarslan <omerg@lucidcode.com.tr> (https://omerg.info)",
   "keywords": [
     "d3",
