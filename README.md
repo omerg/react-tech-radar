@@ -1,6 +1,8 @@
 
+<a href="https://react-tech-radar.netlify.com" target="_blank">
+    <img src="https://raw.githubusercontent.com/omerg/react-tech-radar/master/screenshots/Screenshot_1.png">
+</a>
 
-<img src="https://raw.githubusercontent.com/omerg/react-tech-radar/master/screenshots/Screenshot_1.png">
 
 # React Tech Radar
 
