@@ -1,0 +1,85 @@
+import React, {useEffect, useState} from 'react';
+
+import * as Tabletop from "tabletop";
+import Radar from "../../src/components/Radar/Radar";
+
+//Data fetched from tabletop is cached for this number of seconds.
+const CACHE_TTL = 120;
+
+const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
+
+function GoogleSpreadSheetDemo() {
+
+    //state variable data
+    const [data, setData] = useState([]);
+
+    const setup = {
+        rings: ['adopt', 'trial', 'assess', 'hold'],
+        quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
+        data: data,
+        dataUrl2: GOOGLE_SPREADSHEET_LINK
+    };
+
+    //effect is used to fetch data
+    //when component is mounted.
+    useEffect(() => {
+
+        const getDataFromCache = (cacheKey) => {
+
+            const scheduleInvalidate = (timeToLive) => {
+
+                const radarCache = setTimeout(() => {
+                    console.log("Radar cache invalidated: " + radarCache);
+                    localStorage.removeItem("RADAR_DATA_" + setup.dataUrl2);
+                }, timeToLive * 1000);
+                console.log("Radar cache set: " + radarCache);
+            };
+
+            //fetch data from google spreadsheets via tabletop
+            //and store it in state
+            const getFromTableTop = () => {
+                Tabletop.init({
+                    key: cacheKey,
+                    callback: (data) => {
+
+                        //update state
+                        setData(data);
+
+                        //update cache
+                        localStorage.setItem("RADAR_DATA_" + setup.dataUrl2, JSON.stringify(data));
+
+                        //clean cache when expired
+                        scheduleInvalidate(CACHE_TTL);
+
+                    },
+                    simpleSheet: true
+                });
+            };
+
+            //get from cache or fetch from spreadsheet
+            const cachedData = localStorage.getItem("RADAR_DATA_" + setup.dataUrl2);
+            if (cachedData) {
+
+                console.log("Cache hit");
+                setData(JSON.parse(cachedData));
+
+                //clean cache when expired
+                scheduleInvalidate(CACHE_TTL);
+            } else {
+                getFromTableTop();
+            }
+        };
+
+        getDataFromCache(setup.dataUrl2);
+
+    }, [setup.dataUrl2, CACHE_TTL]);
+
+    return (
+        <div className="App">
+            <Radar {...setup} />
+        </div>
+    );
+
+}
+
+export default GoogleSpreadSheetDemo;

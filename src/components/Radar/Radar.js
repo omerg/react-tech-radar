@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useContext} from 'react';
 import {RadarContents} from "./Radar.style";
 import PropTypes from 'prop-types';
 
 import Quadrant from "../Quadrant/Quadrant";
 import {getColorScale, ThemeContext} from "../theme-context";
-import * as Tabletop from "tabletop";
 
 //when point coordinates are calculated randomly, sometimes point coordinates
 // get so close that it would be hard to read the textual part. When such
@@ -15,9 +14,6 @@ const MAX_COLLISION_RETRY_COUNT = 350;
 //This value is used to determine whether a collision retry should be triggered or not.
 const TOLERANCE_CONSTANT = 6;
 
-//Data fetched from tabletop is cached for this number of seconds.
-const DEFAULT_CACHE_TTL = 120;
-
 //default radar width
 const DEFAULT_WIDTH = 700;
 
@@ -26,9 +22,10 @@ function Radar(props) {
     //manage optional variables
     const width = props.width || DEFAULT_WIDTH;
     const rings = props.rings || [""];
-
-    //state variable data
-    const [data, setData] = useState([]);
+    const data = props.data || [];
+    if (data.length === 0) {
+        console.log("No Data Provided")
+    }
 
     //context variables
     const {fontSize, fontFamily, colorScale} = useContext(ThemeContext);
@@ -43,9 +40,9 @@ function Radar(props) {
     const toleranceX = width / rings.length / 100 * TOLERANCE_CONSTANT * 4;
     const toleranceY = (props.fontSize || fontSize);
 
-    console.log("Collision Tolerance (Pixels):");
-    console.log("x: " + toleranceX);
-    console.log("y: " + toleranceY);
+    //console.log("Collision Tolerance (Pixels):");
+    //console.log("x: " + toleranceX);
+    //console.log("y: " + toleranceY);
 
     //given the ring and quadrant of a value,
     //calculates x and y coordinates
@@ -63,7 +60,7 @@ function Radar(props) {
         // go through the data
         const results = [];
 
-        for (let i in data) {
+        for (const i in data) {
 
             const entry = data[i];
 
@@ -92,7 +89,7 @@ function Radar(props) {
             results.push(blip);
         }
 
-        console.log("Collision Count: " + collisionCount);
+        //console.log("Collision Count: " + collisionCount);
 
         return results;
     };
@@ -156,65 +153,6 @@ function Radar(props) {
         return data;
     };
 
-    //effect is used to fetch data
-    //when component is mounted.
-    useEffect(() => {
-
-        const getDataFromCache = (cacheKey) => {
-
-            const scheduleInvalidate = () => {
-
-                const radarCache = setTimeout(() => {
-                    console.log("Radar cache invalidated: " + radarCache);
-                    localStorage.removeItem("RADAR_DATA_" + props.dataUrl);
-                }, timeToLive * 1000);
-                console.log("Radar cache set: " + radarCache);
-            };
-
-            const timeToLive = props.cacheTTL || DEFAULT_CACHE_TTL;
-
-            const cachedData = localStorage.getItem("RADAR_DATA_" + props.dataUrl);
-
-            if (cachedData) {
-
-                console.log("Cache hit");
-                setData(JSON.parse(cachedData));
-
-                //clean cache when expired
-                scheduleInvalidate();
-
-                return;
-            }
-
-            Tabletop.init({
-                    key: cacheKey,
-                    callback: (data, tabletop) => {
-
-                        //update state
-                        setData(data);
-
-                        //update cache
-                        localStorage.setItem("RADAR_DATA_" + props.dataUrl, JSON.stringify(data))
-
-                        //clean cache when expired
-                        scheduleInvalidate();
-
-                    },
-                    simpleSheet: true
-                }
-            )
-        };
-
-        if (props.data) {
-            setData(props.data);
-        } else if (props.dataUrl) {
-            getDataFromCache(props.dataUrl);
-        } else {
-            console.warn("No Data Provided");
-        }
-
-    }, [props.data, props.dataUrl, props.cacheTTL]);
-
     const points = processRadarData(props.quadrants, rings, data);
 
     return (
@@ -258,11 +196,9 @@ function Radar(props) {
 
 Radar.propTypes = {
     quadrants: PropTypes.array.isRequired,
-    rings: PropTypes.array.isRequired,
+    rings: PropTypes.array,
     width: PropTypes.number,
     data: PropTypes.array,
-    dataUrl: PropTypes.string,
-    cacheTTL: PropTypes.number,
     fontSize: PropTypes.number,
     colorScaleIndex: PropTypes.number
 };
