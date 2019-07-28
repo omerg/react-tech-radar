@@ -4,9 +4,9 @@ import * as Tabletop from "tabletop";
 import Radar from "../../src/components/Radar/Radar";
 
 //Data fetched from tabletop is cached for this number of seconds.
-const CACHE_TTL = 120;
+const CACHE_TTL = 10;
 
-const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
+const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1XkfUX8auztSkMoHwBEraDjHZgx7NEH59OyUZH-0IQGw/edit";
 
 function GoogleSpreadSheetDemo() {
 
@@ -14,8 +14,8 @@ function GoogleSpreadSheetDemo() {
     const [data, setData] = useState([]);
 
     const setup = {
-        rings: ['adopt', 'trial', 'assess', 'hold'],
-        quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
+        rings: ['adopt', 'assess', 'hold'],
+        quadrants: ['back-end & infrastructure', 'front-end', 'tools', 'language-and-frameworks'],
         data: data,
         dataUrl: GOOGLE_SPREADSHEET_LINK
     };
