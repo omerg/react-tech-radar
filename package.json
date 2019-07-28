@@ -20,9 +20,6 @@
       ]
     ]
   },
-  "peerDependencies": {
-
-  },
   "dependencies": {
     "d3": "^5.9.7",
     "prop-types": "^15.7.2",
