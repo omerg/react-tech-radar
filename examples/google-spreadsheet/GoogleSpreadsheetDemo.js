@@ -17,7 +17,7 @@ function GoogleSpreadSheetDemo() {
         rings: ['adopt', 'trial', 'assess', 'hold'],
         quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
         data: data,
-        dataUrl2: GOOGLE_SPREADSHEET_LINK
+        dataUrl: GOOGLE_SPREADSHEET_LINK
     };
 
     //effect is used to fetch data
@@ -30,7 +30,7 @@ function GoogleSpreadSheetDemo() {
 
                 const radarCache = setTimeout(() => {
                     console.log("Radar cache invalidated: " + radarCache);
-                    localStorage.removeItem("RADAR_DATA_" + setup.dataUrl2);
+                    localStorage.removeItem("RADAR_DATA_" + setup.dataUrl);
                 }, timeToLive * 1000);
                 console.log("Radar cache set: " + radarCache);
             };
@@ -46,7 +46,7 @@ function GoogleSpreadSheetDemo() {
                         setData(data);
 
                         //update cache
-                        localStorage.setItem("RADAR_DATA_" + setup.dataUrl2, JSON.stringify(data));
+                        localStorage.setItem("RADAR_DATA_" + setup.dataUrl, JSON.stringify(data));
 
                         //clean cache when expired
                         scheduleInvalidate(CACHE_TTL);
@@ -57,7 +57,7 @@ function GoogleSpreadSheetDemo() {
             };
 
             //get from cache or fetch from spreadsheet
-            const cachedData = localStorage.getItem("RADAR_DATA_" + setup.dataUrl2);
+            const cachedData = localStorage.getItem("RADAR_DATA_" + setup.dataUrl);
             if (cachedData) {
 
                 console.log("Cache hit");
@@ -70,9 +70,9 @@ function GoogleSpreadSheetDemo() {
             }
         };
 
-        getDataFromCache(setup.dataUrl2);
+        getDataFromCache(setup.dataUrl);
 
-    }, [setup.dataUrl2, CACHE_TTL]);
+    }, [setup.dataUrl, CACHE_TTL]);
 
     return (
         <div className="App">

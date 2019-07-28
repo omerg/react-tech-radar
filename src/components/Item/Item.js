@@ -11,7 +11,7 @@ function Item(props) {
     let ref = useRef(null);
 
     //context variables
-    const {fontSize, fontFamily} = useContext(ThemeContext);
+    const {itemFontSize, fontFamily} = useContext(ThemeContext);
 
     //state variables
     const [isHovered, setIsHovered] = useState(false);
@@ -42,7 +42,7 @@ function Item(props) {
                 className={"name"}
                 dx={"7px"}
                 dy={"7px"}
-                fontSize={fontSize}
+                fontSize={itemFontSize}
                 fontFamily={fontFamily}
             >
                 {isHovered ? props.data.name : shortName}

@@ -31,5 +31,6 @@ export function getColorScale(colorScaleIndex) {
 export const ThemeContext = React.createContext({
     colorScale: DEFAULT_COLOR_SCALE,
     fontFamily: DEFAULT_FONT_FAMILY,
-    fontSize: DEFAULT_FONT_SIZE
+    fontSize: DEFAULT_FONT_SIZE,
+    itemFontSize: DEFAULT_FONT_SIZE
 });

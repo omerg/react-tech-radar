@@ -2,135 +2,196 @@ import React from 'react';
 
 import {storiesOf} from '@storybook/react';
 import Radar from "../components/Radar/Radar";
+import GoogleSpreadSheetDemo from "../../examples/google-spreadsheet/GoogleSpreadsheetDemo";
 
-storiesOf('Radar', module)
+storiesOf('Basics', module)
+    .add('with minimum setup', () => {
+
+        const setup = {
+            rings: ['discover', 'learn', 'use'],
+            quadrants: ['languages', 'frameworks', 'tools', 'libraries'],
+            data: [
+                {
+                    name: 'D3',
+                    quadrant: 'libraries',
+                    ring: "learn"
+                },
+                {
+                    name: 'TypeScript',
+                    quadrant: 'languages',
+                    ring: "learn"
+                },
+                {
+                    name: 'Storybook',
+                    quadrant: 'tools',
+                    ring: "use"
+                }
+            ]
+        };
+        return (
+            <Radar
+                rings={setup.rings}
+                quadrants={setup.quadrants}
+                data={setup.data}/>
+        )
+    })
     .add('with 5 quadrants', () => {
 
-        const state = {
+        const setup = {
 
             rings: ['adopt', 'trial', 'assess', 'hold'],
             quadrants: ['tools', 'techniques', 'platforms', 'languages', 'frameworks'],
             data: [
                 {
                     name: 'D3',
-                    description: 'The d3 library for producing visualisation and data driven documents',
-                    links: ['http://d3js.org'],
                     quadrant: 'tools',
-                    ring: "adopt"
+                    ring: "assess"
 
                 },
                 {
                     name: 'TypeScript',
-                    description: 'The d3 library for producing visualisation and data driven documents',
-                    links: ['http://d3js.org'],
                     quadrant: 'languages',
                     ring: "trial"
+                },
+                {
+                    name: 'Storybook',
+                    quadrant: 'tools',
+                    ring: "adopt"
                 }
             ]
         };
         return (
             <Radar
-                width={state.width}
-                rings={state.rings}
-                quadrants={state.quadrants}
-                data={state.data}
+                width={setup.width}
+                rings={setup.rings}
+                quadrants={setup.quadrants}
+                data={setup.data}
             />
         )
     })
-    .add('with 3 rings', () => {
+    .add('with data from Google SpreadSheet', () => {
+        return <GoogleSpreadSheetDemo/>
+    })
+    .add('with custom font size and font family', () => {
+
+    const state = {
+        rings: ['adopt', 'trial', 'assess', 'hold'],
+        quadrants: ['tools', 'techniques', 'platforms', 'languages'],
+        width: 550,
+        data: [
+            {
+                name: 'D3',
+                quadrant: 'tools',
+                ring: "assess"
+
+            },
+            {
+                name: 'TypeScript',
+                quadrant: 'languages',
+                ring: "trial"
+            },
+            {
+                name: 'Storybook',
+                quadrant: 'tools',
+                ring: "adopt"
+            }
+        ]
+    };
+    return (
+        <Radar
+            width={state.width}
+            rings={state.rings}
+            quadrants={state.quadrants}
+            data={state.data}
+            fontSize={18}
+            itemFontSize={12}
+            fontFamily={"fantasy"}/>
+    )
+});
+
+
+const colorSchemeStoryHandler = (schemeIndex) => () => {
+
+    const setup = {
+
+        rings: ['adopt', 'trial', 'assess', 'hold'],
+        quadrants: ['tools', 'techniques', 'platforms', 'languages', 'frameworks', "methodologies"],
+        data: [
+            {
+                name: 'D3',
+                quadrant: 'tools',
+                ring: "assess"
+
+            },
+            {
+                name: 'TypeScript',
+                quadrant: 'languages',
+                ring: "trial"
+            },
+            {
+                name: 'Storybook',
+                quadrant: 'tools',
+                ring: "adopt"
+            }
+        ],
+        colorScaleIndex: schemeIndex
+    };
+    return (
+        <Radar
+            width={setup.width}
+            rings={setup.rings}
+            quadrants={setup.quadrants}
+            data={setup.data}
+            colorScaleIndex={setup.colorScaleIndex}
+        />
+    )
+};
+
+storiesOf('Color Schemes', module)
+    .add('with 1', colorSchemeStoryHandler(1))
+    .add('with 2', colorSchemeStoryHandler(2))
+    .add('with 3', colorSchemeStoryHandler(3))
+    .add('with 4', colorSchemeStoryHandler(4))
+    .add('with 5', colorSchemeStoryHandler(5))
+    .add('with 6', colorSchemeStoryHandler(6));
+
+storiesOf('Edge Cases', module)
+    .add('without rings', () => {
 
         let state = {
-
-            rings: ['discover', 'learn', 'use'],
-            quadrants: ['languages', 'frameworks', 'tools', 'big data'],
+            quadrants: ['tools', 'techniques', 'platforms', 'languages'],
             data: [
                 {
-                    name: 'Angular 8',
-                    description: 'The d3 library for producing visualisation and data driven documents',
-                    links: ['http://d3js.org'],
-                    quadrant: 'frameworks',
-                    ring: "use"
+                    name: 'D3',
+                    quadrant: 'tools'
 
                 },
                 {
-                    name: 'Rust',
-                    description: 'The d3 library for producing visualisation and data driven documents',
-                    links: ['http://d3js.org'],
-                    quadrant: 'languages',
-                    ring: "learn"
+                    name: 'TypeScript',
+                    quadrant: 'languages'
+                },
+                {
+                    name: 'Storybook',
+                    quadrant: 'tools'
                 }
             ]
         };
         return (
             <Radar
-                width={state.width}
-                rings={state.rings}
-                quadrants={state.quadrants}
-                data={state.data}/>
-        )
-    })
-    .add('with data from Google SpreadSheet', () => {
-
-        const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
-
-        let state = {
-            rings: ['adopt', 'trial', 'assess', 'hold'],
-            quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
-            dataUrl: GOOGLE_SPREADSHEET_LINK
-        };
-        return (
-            <Radar
-                width={state.width}
-                rings={state.rings}
                 quadrants={state.quadrants}
                 dataUrl={state.dataUrl}/>
         )
     })
     .add('with no data provided', () => {
 
-        let state = {
-            rings: ['adopt', 'trial', 'assess', 'hold'],
-            quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
-        };
-        return (
-            <Radar
-                width={state.width}
-                rings={state.rings}
-                quadrants={state.quadrants}/>
-        )
-    })
-    .add('with custom font size and font family', () => {
-
-        const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
-
-        let state = {
-            rings: ['adopt', 'trial', 'assess', 'hold'],
-            quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
-            width: 800,
-            dataUrl: GOOGLE_SPREADSHEET_LINK
-        };
-        return (
-            <Radar
-                width={state.width}
-                rings={state.rings}
-                quadrants={state.quadrants}
-                dataUrl={state.dataUrl}
-                fontSize={18}
-                fontFamily={"fantasy"}/>
-        )
-    })
-    .add('without rings', () => {
-
-    const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1vmXx5CFxek3UUgJ-2WnYJC8tpLBvcBuz9ylFjyN0qQA/edit";
-
-    let state = {
+    const setup = {
+        rings: ['adopt', 'trial', 'assess', 'hold'],
         quadrants: ['tools', 'techniques', 'platforms', 'language-and-frameworks'],
-        dataUrl: GOOGLE_SPREADSHEET_LINK
     };
     return (
         <Radar
-            quadrants={state.quadrants}
-            dataUrl={state.dataUrl}/>
+            width={setup.width}
+            rings={setup.rings}
+            quadrants={setup.quadrants}/>
     )
 });
-

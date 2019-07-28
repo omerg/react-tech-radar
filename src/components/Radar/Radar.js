@@ -159,6 +159,7 @@ function Radar(props) {
         //theme context variables can be overridden by props
         <ThemeContext.Provider value={{
             fontSize: props.fontSize || fontSize,
+            itemFontSize: props.itemFontSize || props.fontSize || fontSize,
             fontFamily: props.fontFamily || fontFamily,
             colorScale: props.colorScaleIndex ? getColorScale(props.colorScaleIndex) : colorScale
         }}>
@@ -200,6 +201,7 @@ Radar.propTypes = {
     width: PropTypes.number,
     data: PropTypes.array,
     fontSize: PropTypes.number,
+    itemFontSize: PropTypes.number,
     colorScaleIndex: PropTypes.number
 };
 
