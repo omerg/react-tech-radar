@@ -119,7 +119,7 @@ __Example:__
 ## Configuration Options
 
 | Prop         | Description    | Default Value |
-| :---         |     :---:      |          ---: |
+| :---         |     :---      |          ---: |
 | width     | The overall width of the main DOM element       | 700px      |
 | fontSize     | Font size of elements       | 12px      |
 | itemFontSize     | Set this if you want the items to have a different size than titles of quadrants and rings. If not set, defaults to fontSize       | 12px      |
