@@ -20,6 +20,9 @@ const DEFAULT_WIDTH = 700;
 //radius of rings diminish as they move away from the center
 const RADIUS_DIMINISH_CONSTANT = 1.5;
 
+//extend width to right so that overflow text would be visible
+const RIGHT_EXTENSION = 1.1;
+
 function Radar(props) {
 
     //manage optional variables
@@ -203,7 +206,7 @@ function Radar(props) {
             colorScale: props.colorScaleIndex ? getColorScale(props.colorScaleIndex) : colorScale
         }}>
             <RadarContents
-                width={width}
+                width={width * RIGHT_EXTENSION}
                 height={width}
                 style={{margin: margin}}
             >
