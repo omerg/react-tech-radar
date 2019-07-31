@@ -3,6 +3,10 @@
   "description": "A React Component for Tech Radar inspired by ThoughtWorks' technology decision sharing project",
   "version": "0.1.27",
   "author": "Omer Gurarslan <omerg@lucidcode.com.tr> (https://omerg.info)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/omerg/react-tech-radar.git"
+  },
   "keywords": [
     "d3",
     "storybook",
