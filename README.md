@@ -17,7 +17,7 @@ Using [npm](https://www.npmjs.com/):
 
 ```jsx
 import React from 'react';
-import Radar from "./components/Radar/Radar";
+import Radar from 'react-tech-radar';
 
 function App() {
 
