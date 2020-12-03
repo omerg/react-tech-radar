@@ -106,8 +106,160 @@ storiesOf('Basics', module)
             fontSize={18}
             itemFontSize={12}
             fontFamily={"fantasy"}/>
+    )})
+        .add('with custom margin', () => {
+
+    const state = {
+        rings: ['adopt', 'trial', 'assess', 'hold'],
+        quadrants: ['tools', 'techniques', 'platforms', 'languages'],
+        width: 550,
+        data: [
+            {
+                name: 'D3',
+                quadrant: 'tools',
+                ring: "assess"
+
+            },
+            {
+                name: 'TypeScript',
+                quadrant: 'languages',
+                ring: "trial"
+            },
+            {
+                name: 'Storybook',
+                quadrant: 'tools',
+                ring: "adopt"
+            }
+        ]
+    };
+    return (
+        <Radar
+            margin={10}
+            width={state.width}
+            rings={state.rings}
+            quadrants={state.quadrants}
+            data={state.data}
+            fontFamily={"fantasy"}/>
     )
-});
+}).add('with labels only on the first rim', () => {
+
+    const state = {
+        rings: ['adopt', 'trial', 'assess', 'hold'],
+        quadrants: ['tools', 'techniques', 'platforms', 'languages'],
+        width: 550,
+        data: [
+            {
+                name: 'D3',
+                quadrant: 'tools',
+                ring: "assess"
+
+            },
+            {
+                name: 'TypeScript',
+                quadrant: 'languages',
+                ring: "trial"
+            },
+            {
+                name: 'Storybook',
+                quadrant: 'tools',
+                ring: "adopt"
+            }
+        ]
+    };
+    return (
+        <Radar
+            margin={10}
+            width={state.width}
+            rings={state.rings}
+            quadrants={state.quadrants}
+            data={state.data}
+            quadrantsConfig={{
+                showOnlyFirstRimLabels : true
+            }}
+            fontFamily={"fantasy"}/>
+    )
+})
+.add('with labels only on the first rim and a y offset on the label', () => {
+
+    const state = {
+        rings: ['adopt', 'trial', 'assess', 'hold'],
+        quadrants: ['tools', 'techniques', 'platforms', 'languages'],
+        width: 550,
+        data: [
+            {
+                name: 'D3',
+                quadrant: 'tools',
+                ring: "assess"
+
+            },
+            {
+                name: 'TypeScript',
+                quadrant: 'languages',
+                ring: "trial"
+            },
+            {
+                name: 'Storybook',
+                quadrant: 'tools',
+                ring: "adopt"
+            }
+        ]
+    };
+    return (
+        <Radar
+            margin={10}
+            width={state.width}
+            rings={state.rings}
+            quadrants={state.quadrants}
+            data={state.data}
+            quadrantsConfig={{
+                showOnlyFirstRimLabels : true,
+                textYOffset : -5
+            }}
+            fontFamily={"fantasy"}/>
+    )
+})
+.add('with  a custom text margin', () => {
+
+    const state = {
+        rings: ['adopt', 'trial', 'assess', 'hold'],
+        quadrants: ['tools', 'techniques', 'platforms', 'languages'],
+        width: 550,
+        data: [
+            {
+                name: 'D3',
+                quadrant: 'tools',
+                ring: "assess"
+
+            },
+            {
+                name: 'TypeScript',
+                quadrant: 'languages',
+                ring: "trial"
+            },
+            {
+                name: 'Storybook',
+                quadrant: 'tools',
+                ring: "adopt"
+            }
+        ]
+    };
+    return (
+        <Radar
+            margin={10}
+            width={state.width}
+            rings={state.rings}
+            quadrants={state.quadrants}
+            data={state.data}
+            quadrantsConfig={{
+                showOnlyFirstRimLabels : true,
+                textMargin : 0,
+                textYOffset : -5
+
+
+            }}
+            fontFamily={"fantasy"}/>
+    )
+})
 
 
 const colorSchemeStoryHandler = (schemeIndex) => () => {

@@ -38,7 +38,7 @@ function Radar(props) {
     const {fontSize, fontFamily, colorScale} = useContext(ThemeContext);
 
     //margin of radar
-    const margin = 5;
+    const margin = props.margin || 5;
 
     //some internally used constants
     const angle = 360 / props.quadrants.length;
@@ -203,7 +203,8 @@ function Radar(props) {
             fontSize: props.fontSize || fontSize,
             itemFontSize: props.itemFontSize || props.fontSize || fontSize,
             fontFamily: props.fontFamily || fontFamily,
-            colorScale: props.colorScaleIndex ? getColorScale(props.colorScaleIndex) : colorScale
+            colorScale: props.colorScaleIndex ? getColorScale(props.colorScaleIndex) : colorScale,
+            quadrantsConfig : props.quadrantsConfig || {}
         }}>
             <RadarContents
                 width={width * RIGHT_EXTENSION}
