@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 function Quadrant(props) {
 
     //context variables
-    const {fontSize, fontFamily, colorScale, quadrantsConfig :{ textMargin, textYOffset, showOnlyFirstRimLabels }} = useContext(ThemeContext);
+    const {fontSize, fontFamily, colorScale, quadrantsConfig :{ textMargin, textYOffset, showOnlyFirstQuadrantLabels }} = useContext(ThemeContext);
 
     //optional variables
     const radiusDiminishConstant = props.radiusDiminish;
@@ -89,7 +89,7 @@ function Quadrant(props) {
                 const title = ringIndex === props.rings.length - 1 ? props.name : null;
 
                 const leftMargin = textMargin ?? (40 * (radiuses[ringIndex + 1] - radiuses[ringIndex]));
-                const showLabel = showOnlyFirstRimLabels? props.index === 0 : true;
+                const showLabel = showOnlyFirstQuadrantLabels? props.index === 0 : true;
                 return (
                     <g key={props.index + "-" + ringIndex}>
                         {showLabel && <Text

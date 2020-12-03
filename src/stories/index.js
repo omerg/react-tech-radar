@@ -174,7 +174,7 @@ storiesOf('Basics', module)
             quadrants={state.quadrants}
             data={state.data}
             quadrantsConfig={{
-                showOnlyFirstRimLabels : true
+                showOnlyFirstQuadrantLabels : true
             }}
             fontFamily={"fantasy"}/>
     )
@@ -212,7 +212,7 @@ storiesOf('Basics', module)
             quadrants={state.quadrants}
             data={state.data}
             quadrantsConfig={{
-                showOnlyFirstRimLabels : true,
+                showOnlyFirstQuadrantLabels : true,
                 textYOffset : -5
             }}
             fontFamily={"fantasy"}/>
@@ -251,7 +251,7 @@ storiesOf('Basics', module)
             quadrants={state.quadrants}
             data={state.data}
             quadrantsConfig={{
-                showOnlyFirstRimLabels : true,
+                showOnlyFirstQuadrantLabels : true,
                 textMargin : 0,
                 textYOffset : -5
 
