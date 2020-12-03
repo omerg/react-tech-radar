@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
-import * as d3 from "d3";
+import {rgb as d3rgb } from 'd3-color';
+import {arc as d3arc } from 'd3-shape';
 import {ThemeContext} from "../theme-context";
 import PropTypes from "prop-types";
 
@@ -8,12 +9,12 @@ function Path(props) {
     //context variables
     const {fontSize, fontFamily, colorScale} = useContext(ThemeContext);
 
-    const rgb = d3.rgb(colorScale(props.quadIndex));
+    const rgb = d3rgb(colorScale(props.quadIndex));
     const fill = rgb.brighter(props.ringIndex / props.ringsLength * 0.9);
     const uniquePathId = props.quadIndex + "-" + props.ringIndex;
 
     const archFunction = () => {
-        return d3.arc()
+        return d3arc()
             .outerRadius(() => {
                 return props.outerRadius * props.ringWidth;
             })

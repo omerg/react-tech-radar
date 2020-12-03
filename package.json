@@ -30,15 +30,18 @@
     ]
   },
   "dependencies": {
-    "d3": "^5.9.7",
+    "d3-color": "^2.0.0",
+    "d3-scale": "^3.2.3",
+    "d3-scale-chromatic": "^2.0.0",
+    "d3-shape": "^2.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "styled-components": "^4.3.2"
   },
-  "peerDependencies" : {
-    "styled-components": ">= 4",
+  "peerDependencies": {
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "styled-components": ">= 4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -69,6 +72,7 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@storybook/core" : "5.3.21",
     "@storybook/addon-actions": "^5.1.9",
     "@storybook/addon-console": "^1.2.1",
     "@storybook/addon-links": "^5.1.9",
