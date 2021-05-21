@@ -12,6 +12,7 @@ function Text(props) {
                      fontSize={fontSize}
                      fontFamily={fontFamily}
                      dx={props.dx}
+                     dy={props.dy}
         >
             {props.name}
         </TextWrapper>

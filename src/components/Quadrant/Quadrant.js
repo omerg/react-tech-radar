@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 function Quadrant(props) {
 
     //context variables
-    const {fontSize, fontFamily, colorScale} = useContext(ThemeContext);
+    const {fontSize, fontFamily, colorScale, quadrantsConfig :{ textMargin, textYOffset, showOnlyFirstQuadrantLabels }} = useContext(ThemeContext);
 
     //optional variables
     const radiusDiminishConstant = props.radiusDiminish;
@@ -88,16 +88,17 @@ function Quadrant(props) {
                 const ringsLength = props.rings.length;
                 const title = ringIndex === props.rings.length - 1 ? props.name : null;
 
-                const leftMargin = 40 * (radiuses[ringIndex + 1] - radiuses[ringIndex]);
-
+                const leftMargin = textMargin ?? (40 * (radiuses[ringIndex + 1] - radiuses[ringIndex]));
+                const showLabel = showOnlyFirstQuadrantLabels? props.index === 0 : true;
                 return (
                     <g key={props.index + "-" + ringIndex}>
-                        <Text
+                        {showLabel && <Text
                             name={ringValue}
                             dx={leftMargin + (radiuses[ringIndex] * ringWidth)}
+                            dy={textYOffset}
                             fontSize={fontSize}
                             fontFamily={fontFamily}
-                        />
+                        />}
                         <Path
                             quadIndex={props.index}
                             ringIndex={ringIndex}
