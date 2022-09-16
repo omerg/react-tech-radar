@@ -36,8 +36,6 @@
     "d3-scale": "^3.2.3",
     "d3-scale-chromatic": "^2.0.0",
     "d3-shape": "^2.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "styled-components": "^4.3.2"
   },
   "peerDependencies": {
@@ -84,6 +82,8 @@
     "@storybook/react": "^6.1.9",
     "@storybook/theming": "latest",
     "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "tabletop": "^1.5.2"
   }
