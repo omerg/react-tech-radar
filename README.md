@@ -5,7 +5,7 @@
 
 A react component that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
-[Demo (Storybook)](https://react-tech-radar.netlify.com/?path=/story/basics--with-data-from-google-spreadsheet)
+[Demo (Storybook)](https://react-tech-radar.netlify.app/?path=/docs/radar--docs)
 
 ## Installation
 
